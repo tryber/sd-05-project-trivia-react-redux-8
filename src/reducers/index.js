@@ -5,26 +5,26 @@ const initialState = {
   isFetching: false,
   data: [],
   error: '',
-}
+};
 
 function fetchGravatar(state = initialState, action) {
   switch (action.type) {
     case REQUEST:
       return {
-        ...state, isFetching: true, 
-      }
+        ...state, isFetching: true,
+      };
     case DATA:
       return {
-        ...state, 
+        ...state,
         isFetching: false,
         data: action.data,
-      }
+      };
     case FAILURE:
       return {
         ...state,
         isFetching: false,
         error: action.error,
-      }
+      };
     default:
       return state;
   }
@@ -32,6 +32,6 @@ function fetchGravatar(state = initialState, action) {
 
 const rootReducer = combineReducers({
   fetchGravatar,
-})
+});
 
 export default rootReducer;

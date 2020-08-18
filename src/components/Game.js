@@ -1,14 +1,13 @@
 import React from 'react';
-import { connect } from 'react-redux';
+// import { connect } from 'react-redux';
 
 class Game extends React.Component {
   render() {
     // const { myState, myFunction } = this.props
     return (
       <div>Game</div>
-    )
+    );
   }
-  
 }
 
 // const mapStateToProps = (state) => ({

@@ -4,7 +4,7 @@ import Player from './components/Player';
 import Game from './components/Game';
 import Score from './components/Score';
 import Ranking from './components/Ranking';
-import logo from './trivia.png';
+// import logo from './trivia.png';
 
 import './App.css';
 
@@ -20,7 +20,7 @@ export default function App() {
     </BrowserRouter>
       // <div className="App">
       //   <header className="App-header">
-      //     <img src={logo} className="App-logo" alt="logo" />          
+      //     <img src={logo} className="App-logo" alt="logo" />
       //   </header>
       // </div>
   );

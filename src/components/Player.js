@@ -1,5 +1,5 @@
 import React from 'react';
-import { connect } from 'react-redux';
+// import { connect } from 'react-redux';
 
 class Player extends React.Component {
   render() {
@@ -8,10 +8,10 @@ class Player extends React.Component {
       <div>
         <input type="text" placeholder="name" data-testid="input-player-name" />
         <input type="email" placeholder="email" data-testid="input-gravatar-email" />
-        <button type="button" data-testid="btn-play" disabled={!this.refs.email}>Jogar</button>
+        <button type="button" data-testid="btn-play">Jogar</button>
       </div>
     );
-  }  
+  }
 }
 
 // const mapStateToProps = (state) => ({

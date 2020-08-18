@@ -25,16 +25,16 @@ export function failureAction(error) {
 const apiGravatar = 'url';
 
 export function fetchGravatarThunk() {
-  return dispatch => {
+  return (dispatch) => {
     dispatch(requestAction());
     return fetch(apiGravatar)
-      .then(response => response.json())
+      .then((response) => response.json())
       .then(
-        data => {
+        (data) => {
           console.log(data.results);
           return dispatch(successDataAction(data.results));
         },
-        error => dispatch(failureAction(error.message)),
+        (error) => dispatch(failureAction(error.message)),
       );
   };
 }
