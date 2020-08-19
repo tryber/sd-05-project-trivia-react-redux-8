@@ -7,36 +7,26 @@ class Player extends React.Component {
     this.state = {
       name: '',
       email: '',
-      checked: false,
+      btn: true,
     };
     this.handleChange = this.handleChange.bind(this);
     this.checkForm = this.checkForm.bind(this);
-    this.ableButton = this.ableButton.bind(this);
+    // this.ableButton = this.ableButton.bind(this);
   }
 
   handleChange(e) {
     const { name, value } = e.target;
     this.setState({ [name]: value });
     this.checkForm();
-    this.ableButton();
   }
 
   checkForm() {
     const { name, email } = this.state;
-    if (!name || !email) {
-      this.setState({ checked: true });
+    if (!name && !email) {
+      this.setState({ btn: false });
     }
   }
-
-  ableButton() {
-    const btnPlay = document.getElementsByClassName('btn-play')[0];
-    if (this.state.checked === false) {
-      btnPlay.disabled = true;
-    } else {
-      btnPlay.disabled = false;
-    }
-  }
-
+  
   render() {
     // const { myState, myFunction } = this.props;
     return (
@@ -54,7 +44,7 @@ class Player extends React.Component {
           name="email"
           onChange={this.handleChange}
         />
-        <button className="btn-play" type="button" data-testid="btn-play" disabled>Jogar</button>
+        <button className="btn-play" type="button" data-testid="btn-play" disabled={this.state.btn}>Jogar</button>
       </div>
     );
   }
