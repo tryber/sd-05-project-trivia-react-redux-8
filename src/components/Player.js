@@ -23,10 +23,8 @@ class Player extends React.Component {
 
   checkForm() {
     const { name, email } = this.state;
-    if ([name] !== '' && [email] !== '') {
+    if (!name && !email) {
       this.setState({ checked: true });
-    } else {
-      this.setState({ checked: false });
     }
   }
 
