@@ -25,6 +25,8 @@ class Player extends React.Component {
     const { name, email } = this.state;
     if ([name] !== '' && [email] !== '') {
       this.setState({ checked: true });
+    } else {
+      this.setState({ checked: false });
     }
   }
 
