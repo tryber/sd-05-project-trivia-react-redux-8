@@ -1,5 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import { LinkSettings } from './LinkSettings';
 // import { connect } from 'react-redux';
 
 class Player extends React.Component {
@@ -54,11 +55,7 @@ class Player extends React.Component {
             Jogar
           </button>
         </Link>
-        <Link to="/settings">
-          <button type="button" data-testid="btn-settings">
-            Veja as configurações disponíveis
-          </button>
-        </Link>
+        <LinkSettings />
       </div>
     );
   }

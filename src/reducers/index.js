@@ -1,7 +1,7 @@
+import { combineReducers } from 'redux';
 import fetchGravatar from './fetchGravatar';
 import fetchToken from './fetchToken';
 import fetchTrivia from './fetchTrivia';
-import { combineReducers } from 'redux';
 
 const rootReducer = combineReducers({
   fetchGravatar,

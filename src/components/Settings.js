@@ -7,8 +7,8 @@ class Settings extends React.Component {
     return (
       <div>
         <h1 data-testid="settings-title">Trivia Settings</h1>
-          {/* Aqui jà veremos se desenvolvemos mais fundo os settings 
-          no final do projeto (opcional) */}
+        {/* Aqui jà veremos se desenvolvemos mais fundo os settings
+        no final do projeto (opcional) */}
       </div>
     );
   }

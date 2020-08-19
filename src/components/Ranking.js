@@ -14,8 +14,8 @@ class Ranking extends React.Component {
           </button>
         </Link>
         {/* Apresentação do ranking
-        Lista criada via map: cada <li> com infos dos Headers de II e III. 
-        Ou seja Gravatar, Nome (data-testid=”player-name-${index}”) 
+        Lista criada via map: cada <li> com infos dos Headers de II e III.
+        Ou seja Gravatar, Nome (data-testid=”player-name-${index}”)
         e pontuaçao (data-testid⁼”player-score-${index}”)
         Ranking no localStorage. */}
       </div>
