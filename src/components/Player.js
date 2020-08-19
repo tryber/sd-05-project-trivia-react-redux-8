@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 // import { connect } from 'react-redux';
 
 class Player extends React.Component {
@@ -11,7 +12,6 @@ class Player extends React.Component {
     };
     this.handleChange = this.handleChange.bind(this);
     this.checkForm = this.checkForm.bind(this);
-    // this.ableButton = this.ableButton.bind(this);
   }
 
   handleChange(e) {
@@ -44,14 +44,21 @@ class Player extends React.Component {
           name="email"
           onChange={this.handleChange}
         />
-        <button
-          className="btn-play"
-          type="button"
-          data-testid="btn-play"
-          disabled={this.state.btn}
-        >
-          Jogar
-        </button>
+        <Link to="/game">
+          <button
+            className="btn-play"
+            type="button"
+            data-testid="btn-play"
+            disabled={this.state.btn}
+          >
+            Jogar
+          </button>
+        </Link>
+        <Link to="/settings">
+          <button type="button" data-testid="btn-settings">
+            Veja as configurações disponíveis
+          </button>
+        </Link>
       </div>
     );
   }
