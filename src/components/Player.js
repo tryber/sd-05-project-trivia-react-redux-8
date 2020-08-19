@@ -26,7 +26,7 @@ class Player extends React.Component {
       this.setState({ btn: false });
     }
   }
-  
+
   render() {
     // const { myState, myFunction } = this.props;
     return (
@@ -44,7 +44,14 @@ class Player extends React.Component {
           name="email"
           onChange={this.handleChange}
         />
-        <button className="btn-play" type="button" data-testid="btn-play" disabled={this.state.btn}>Jogar</button>
+        <button
+          className="btn-play"
+          type="button"
+          data-testid="btn-play"
+          disabled={this.state.btn}
+        >
+          Jogar
+        </button>
       </div>
     );
   }
