@@ -1,5 +1,5 @@
 import React from 'react';
-import { connect } from 'react-redux';
+// import { connect } from 'react-redux';
 
 class Player extends React.Component {
   constructor(props) {
@@ -8,7 +8,7 @@ class Player extends React.Component {
       name: '',
       email: '',
       checked: false,
-    }
+    };
     this.handleChange = this.handleChange.bind(this);
     this.checkForm = this.checkForm.bind(this);
     this.ableButton = this.ableButton.bind(this);
@@ -20,17 +20,17 @@ class Player extends React.Component {
     this.checkForm();
     this.ableButton();
   }
-  
-  checkForm(name, email) {
-    // const { name, email } = this.state;
-    if([this.state.name] !== '' && [this.state.email] !== '') {
+
+  checkForm() {
+    const { name, email } = this.state;
+    if ([name] !== '' && [email] !== '') {
       this.setState({ checked: true });
     }
   }
 
   ableButton() {
     const btnPlay = document.getElementsByClassName('btn-play')[0];
-    if(this.state.checked === false) {
+    if (this.state.checked === false) {
       btnPlay.disabled = true;
     } else {
       btnPlay.disabled = false;
@@ -38,12 +38,22 @@ class Player extends React.Component {
   }
 
   render() {
-
-    const { myState, myFunction } = this.props;
+    // const { myState, myFunction } = this.props;
     return (
       <div>
-        <input type="text" placeholder="name" data-testid="input-player-name" name="name" onChange={this.handleChange} />
-        <input type="email" placeholder="email" data-testid="input-gravatar-email" name="email" onChange={this.handleChange} />
+        <input
+          type="text"
+          placeholder="name"
+          data-testid="input-player-name"
+          name="name"
+          onChange={this.handleChange}
+        />
+        <input
+          type="email"
+          placeholder="email" data-testid="input-gravatar-email"
+          name="email"
+          onChange={this.handleChange}
+        />
         <button className="btn-play" type="button" data-testid="btn-play" disabled>Jogar</button>
       </div>
     );
