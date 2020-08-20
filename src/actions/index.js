@@ -1,14 +1,14 @@
 export const REQUEST = 'REQUEST';
 export const DATA = 'DATA';
 export const FAILURE = 'FAILURE';
-export const DATA_PLAYER = 'DATA_PLAYER'
+export const DATA_PLAYER = 'DATA_PLAYER';
 
 export function dataPlayerAction(name, email) {
   return {
     type: DATA_PLAYER,
     name,
     email,
-  }
+  };
 }
 
 export function requestAction() {

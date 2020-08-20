@@ -1,6 +1,7 @@
 import React from 'react';
-import { Redirect } from 'react-router-dom';
+import propTypes from 'prop-types';
 import LinkSettings from './LinkSettings';
+import { Redirect } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { dataPlayerAction, fetchTokenThunk, fetchTriviaThunk } from '../actions';
 
@@ -75,5 +76,12 @@ const mapDispatchToProps = (dispatch) => ({
   getToken: (e) => dispatch(fetchTokenThunk(e)),
   getTrivia: (tokn) => dispatch(fetchTriviaThunk(tokn)),
 });
+
+Player.propTypes = {
+  token: propTypes.string.isRequired,
+  getDataPlater: propTypes.func.isRequired,
+  getToken: propTypes.func.isRequired,
+  getTrivia: propTypes.func.isRequired,
+};
 
 export default connect(mapStateToProps, mapDispatchToProps)(Player);
