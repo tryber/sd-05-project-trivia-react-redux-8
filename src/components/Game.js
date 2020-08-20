@@ -22,13 +22,13 @@ class Game extends React.Component {
 }
 
 // const mapStateToProps = (state) => ({
-  // para acessar o objeto que està no estado do store do redux
-// dataQuestion: state.fetchTrivia.dataGame.results.questions
-// dataCorrectAnswer: state.fetchTrivia.dataGame.results.correct_answers
+// para acessar o objeto do reducer fetchTrivia
+// que tem a chave dataGame cujo valor é recebido pela api
 // sabendo que dataGame é um array de 5 objetos dentro dos quais tem perguntas e respostas
-// podemos imaginar uma props construida assim:
-// 
-// })
+// Sugestao:
+// dataQuestion: state.fetchTrivia.dataGame.results.questions,
+// dataCorrectAnswer: state.fetchTrivia.dataGame.results.correct_answers,
+
 
 // const mapDispatchToProps = (dispatch) => ({
 //   // myFunction: (e) => dispatch(myAction(e))

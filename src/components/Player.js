@@ -71,7 +71,6 @@ class Player extends React.Component {
 // const mapStateToProps = (state) => ({
 //   token: state.fetchToken.token,
 // });
-// o fetch de APIs dentro da function disparada pelo botao jogar tem que ocorrer para varios jogadores, portanto, escrevemos a promise sem usar esse estado para maior flexibilidade.
 
 const mapDispatchToProps = (dispatch) => ({
   getDataPlayer: (name, email) => dispatch(dataPlayerAction(name, email)),
@@ -80,7 +79,7 @@ const mapDispatchToProps = (dispatch) => ({
 });
 
 Player.propTypes = {
-  token: propTypes.string.isRequired,
+  // token: propTypes.string.isRequired,
   getDataPlayer: propTypes.func.isRequired,
   getToken: propTypes.func.isRequired,
   getTrivia: propTypes.func.isRequired,
