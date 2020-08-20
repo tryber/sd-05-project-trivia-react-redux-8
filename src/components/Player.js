@@ -1,9 +1,9 @@
 import React from 'react';
 import propTypes from 'prop-types';
-import LinkSettings from './LinkSettings';
 import { Redirect } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { dataPlayerAction, fetchTokenThunk, fetchTriviaThunk } from '../actions';
+import LinkSettings from './LinkSettings';
 
 class Player extends React.Component {
   constructor(props) {
@@ -79,7 +79,7 @@ const mapDispatchToProps = (dispatch) => ({
 
 Player.propTypes = {
   token: propTypes.string.isRequired,
-  getDataPlater: propTypes.func.isRequired,
+  getDataPlayer: propTypes.func.isRequired,
   getToken: propTypes.func.isRequired,
   getTrivia: propTypes.func.isRequired,
 };
