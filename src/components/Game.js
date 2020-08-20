@@ -4,7 +4,7 @@ import Header from './Header';
 
 class Game extends React.Component {
   render() {
-    // const { myState, myFunction } = this.props
+    // const { dataQuestion, dataCorrectAnswer, myFunction } = this.props
     return (
       <div>
         <Header />
@@ -22,7 +22,12 @@ class Game extends React.Component {
 }
 
 // const mapStateToProps = (state) => ({
-//   // myState: state.myReducer.key,
+  // para acessar o objeto que està no estado do store do redux
+// dataQuestion: state.fetchTrivia.dataGame.results.questions
+// dataCorrectAnswer: state.fetchTrivia.dataGame.results.correct_answers
+// sabendo que dataGame é um array de 5 objetos dentro dos quais tem perguntas e respostas
+// podemos imaginar uma props construida assim:
+// 
 // })
 
 // const mapDispatchToProps = (dispatch) => ({
