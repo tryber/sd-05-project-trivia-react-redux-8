@@ -1,21 +1,24 @@
 import React from 'react';
+// import propTypes from 'prop-types'
 // import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import Header from './Header';
 
 class Score extends React.Component {
   render() {
-    // const { myState, myFunction } = this.props
+    // const { score, correct } = this.props;
     return (
       <div>
         <Header />
-        <section data-testid="feedback-text">Aqui vai aparecer mensagem de feedback</section>
-        {/* A mensagem deve ser "Podia ser melhor..." caso a pessoa acerte menos de 3 perguntas
-        (estado: nota da pessoa que vai estar no score)
-        A mensagem deve ser "Mandou bem!" caso a pessoa acerte 3 perguntas ou mais */}
         <section>
-          Informações relacionadas aos resultados obtidos
-          {/* Placar / Perguntas acertadas */}
+          <h3>Feedback message:</h3>
+          {/* {(correct >= 3) && <p data-testid="feedback-text">Mandou bem!</p>}
+          {(correct < 3) && <p data-testid="feedback-text">Podia ser melhor...</p>} */}
+        </section>
+        <section>
+          <h3>See your results:</h3>
+          {/* <p data-testid="feedback-total-score">Your total score is {score} points</p>
+          <p data-testid="feedback-total-question">...Because you got {assertions} answers right.</p> */}
         </section>
         <Link to="/">
           <button type="button" data-testid="btn-play-again">
@@ -33,7 +36,7 @@ class Score extends React.Component {
 }
 
 // const mapStateToProps = (state) => ({
-//   // myState: state.myReducer.key,
+//   score: 
 // })
 
 // const mapDispatchToProps = (dispatch) => ({
