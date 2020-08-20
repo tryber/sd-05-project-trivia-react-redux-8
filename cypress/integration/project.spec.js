@@ -310,7 +310,7 @@ describe('A pessoa que joga deve ter acesso à tela de configurações através 
   });
 });
 
-describe.only('A pessoa jogadora deve iniciar um jogo', () => {
+describe('A pessoa jogadora deve iniciar um jogo', () => {
   beforeEach(() => {
     cy.visit('http://localhost:3000/');
     cy.clearLocalStorage();

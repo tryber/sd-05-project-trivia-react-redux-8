@@ -1,28 +1,39 @@
 import React from 'react';
-// import { connect } from 'react-redux';
+import propTypes from 'prop-types';
+import { connect } from 'react-redux';
+import { MD5 } from 'crypto-js';
 // import alguma action from actions;
 
 class Header extends React.Component {
   render() {
-    // const { myState, myFunction } = this.props
+    const { hash, name } = this.props;
     return (
       <div>
-        <img data-testid="header-profile-picture" alt="" />
-        <p data-testid="header-player-name">Aqui integrar nome</p>
-        <div data-testid="header-score">Aqui integrar placar</div>
+        <img
+          data-testid="header-profile-picture"
+          alt=""
+          src={`https://www.gravatar.com/avatar/${hash}`}
+        />
+        {/* a imagem default do gravatar jà vai naturalmente */}
+        <p data-testid="header-player-name">{name}</p>
+        {/* <p data-testid="header-score">Aqui vai ser {score} quando tivermos</p> */}
       </div>
     );
   }
 }
 
-// const mapStateToProps = (state) => ({
-//   // myState: state.myReducer.key,
-// })
+const mapStateToProps = (state) => ({
+  hash: MD5(state.dataPlayerReducer.email).toString(),
+  name: state.dataPlayer.name,
+})
 
 // const mapDispatchToProps = (dispatch) => ({
 //   // myFunction: (e) => dispatch(myAction(e))
 // });
 
-// export default connect(mapStateToProps, mapDispatchToProps)(Score);
+Header.propTypes = {
+  hash: propTypes.string.isRequired,
+  name: propTypes.string.isRequired,
+};
 
-export default Header;
+export default connect(mapStateToProps)(Header);
