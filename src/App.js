@@ -4,6 +4,7 @@ import Player from './components/Player';
 import Game from './components/Game';
 import Score from './components/Score';
 import Ranking from './components/Ranking';
+import Settings from './components/Settings';
 // import logo from './trivia.png';
 
 import './App.css';
@@ -16,6 +17,7 @@ export default function App() {
         <Route exact path="/game" component={Game} />
         <Route exact path="/score" component={Score} />
         <Route exact path="/ranking" component={Ranking} />
+        <Route exact path="/settings" component={Settings} />
       </Switch>
     </BrowserRouter>
       // <div className="App">
