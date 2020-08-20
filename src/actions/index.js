@@ -1,6 +1,15 @@
 export const REQUEST = 'REQUEST';
 export const DATA = 'DATA';
 export const FAILURE = 'FAILURE';
+export const DATA_PLAYER = 'DATA_PLAYER'
+
+export function dataPlayerAction(name, email) {
+  return {
+    type: DATA_PLAYER,
+    name,
+    email,
+  }
+}
 
 export function requestAction() {
   return {
@@ -38,7 +47,7 @@ export function fetchGravatarThunk() {
   };
 }
 
-const apiToken = 'url';
+const apiToken = 'https://opentdb.com/api_token.php?command=request';
 export function fetchTokenThunk() {
   return (dispatch) => {
     dispatch(requestAction());
@@ -46,24 +55,24 @@ export function fetchTokenThunk() {
       .then((response) => response.json())
       .then(
         (data) => {
-          console.log(data.results);
-          return dispatch(successDataAction(data.results));
+          console.log(data.token);
+          return dispatch(successDataAction(data.token));
         },
-        (error) => dispatch(failureAction(error.message)),
+        (error) => dispatch(failureAction(error)),
       );
   };
 }
 
-const apiTrivia = 'url';
-export function fetchTriviaThunk() {
+const apiTrivia = 'https://opentdb.com/api.php?amount=5&token=';
+export function fetchTriviaThunk(token) {
   return (dispatch) => {
     dispatch(requestAction());
-    return fetch(apiTrivia)
+    return fetch(`${apiTrivia}${token}`)
       .then((response) => response.json())
       .then(
         (data) => {
-          console.log(data.results);
-          return dispatch(successDataAction(data.results));
+          console.log(data);
+          return dispatch(successDataAction(data));
         },
         (error) => dispatch(failureAction(error.message)),
       );
