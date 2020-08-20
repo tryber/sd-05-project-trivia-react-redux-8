@@ -25,7 +25,7 @@ class Header extends React.Component {
 const mapStateToProps = (state) => ({
   hash: MD5(state.dataPlayerReducer.email).toString(),
   name: state.dataPlayer.name,
-})
+});
 
 // const mapDispatchToProps = (dispatch) => ({
 //   // myFunction: (e) => dispatch(myAction(e))
