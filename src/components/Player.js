@@ -23,15 +23,16 @@ class Player extends React.Component {
   }
 
   provokeApis() {
-    const { getDataPlayer, getToken, getTrivia, token } = this.props;
+    const { getDataPlayer, getToken, getTrivia } = this.props;
+    // const { token } = this.props;
     const { name, email } = this.state;
     getDataPlayer(name, email);
     // getToken();
     // getTrivia(token);
-    getToken()
-      .then(() => getTrivia(token))
-      .then(() => localStorage.setItem('token', token));
-    this.setState({ goToGame: true });
+    getToken().then(({ token }) => {
+      getTrivia(token);
+      localStorage.setItem('token', token);
+    });
   }
 
   render() {
@@ -67,9 +68,9 @@ class Player extends React.Component {
   }
 }
 
-const mapStateToProps = (state) => ({
-  token: state.fetchToken.token,
-});
+// const mapStateToProps = (state) => ({
+//   token: state.fetchToken.token,
+// });
 
 const mapDispatchToProps = (dispatch) => ({
   getDataPlayer: (name, email) => dispatch(dataPlayerAction(name, email)),
@@ -78,10 +79,10 @@ const mapDispatchToProps = (dispatch) => ({
 });
 
 Player.propTypes = {
-  token: propTypes.string.isRequired,
+  // token: propTypes.string.isRequired,
   getDataPlayer: propTypes.func.isRequired,
   getToken: propTypes.func.isRequired,
   getTrivia: propTypes.func.isRequired,
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(Player);
+export default connect(null, mapDispatchToProps)(Player);

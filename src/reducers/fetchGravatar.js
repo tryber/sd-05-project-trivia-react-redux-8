@@ -1,4 +1,4 @@
-import { REQUEST, DATA, FAILURE } from '../actions';
+import { REQUEST_GRAVATAR, DATA_GRAVATAR, FAILURE } from '../actions';
 
 const initialState = {
   isFetching: false,
@@ -8,11 +8,11 @@ const initialState = {
 
 function fetchGravatar(state = initialState, action) {
   switch (action.type) {
-    case REQUEST:
+    case REQUEST_GRAVATAR:
       return {
         ...state, isFetching: true,
       };
-    case DATA:
+    case DATA_GRAVATAR:
       return {
         ...state,
         isFetching: false,

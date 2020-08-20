@@ -1,4 +1,4 @@
-import { REQUEST, DATA, FAILURE } from '../actions';
+import { REQUEST_TOKEN, DATA_TOKEN, FAILURE } from '../actions';
 
 const initialState = {
   isFetching: false,
@@ -8,15 +8,15 @@ const initialState = {
 
 function fetchToken(state = initialState, action) {
   switch (action.type) {
-    case REQUEST:
+    case REQUEST_TOKEN:
       return {
         ...state, isFetching: true,
       };
-    case DATA:
+    case DATA_TOKEN:
       return {
         ...state,
         isFetching: false,
-        token: action.data,
+        token: action.tok,
       };
     case FAILURE:
       return {

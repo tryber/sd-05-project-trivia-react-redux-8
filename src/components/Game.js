@@ -4,7 +4,7 @@ import Header from './Header';
 
 class Game extends React.Component {
   render() {
-    // const { myState, myFunction } = this.props
+    // const { dataQuestion, dataCorrectAnswer, myFunction } = this.props
     return (
       <div>
         <Header />
@@ -22,8 +22,13 @@ class Game extends React.Component {
 }
 
 // const mapStateToProps = (state) => ({
-//   // myState: state.myReducer.key,
-// })
+// para acessar o objeto do reducer fetchTrivia
+// que tem a chave dataGame cujo valor é recebido pela api
+// sabendo que dataGame é um array de 5 objetos dentro dos quais tem perguntas e respostas
+// Sugestao:
+// dataQuestion: state.fetchTrivia.dataGame.results.questions,
+// dataCorrectAnswer: state.fetchTrivia.dataGame.results.correct_answers,
+
 
 // const mapDispatchToProps = (dispatch) => ({
 //   // myFunction: (e) => dispatch(myAction(e))

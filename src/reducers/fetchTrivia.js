@@ -1,22 +1,22 @@
-import { REQUEST, DATA, FAILURE } from '../actions';
+import { REQUEST_TRIVIA, DATA_TRIVIA, FAILURE } from '../actions';
 
 const initialState = {
   isFetching: false,
-  data: [],
+  dataGame: [],
   error: '',
 };
 
 function fetchTrivia(state = initialState, action) {
   switch (action.type) {
-    case REQUEST:
+    case REQUEST_TRIVIA:
       return {
         ...state, isFetching: true,
       };
-    case DATA:
+    case DATA_TRIVIA:
       return {
         ...state,
         isFetching: false,
-        data: action.data,
+        dataGame: action.dataGame,
       };
     case FAILURE:
       return {
