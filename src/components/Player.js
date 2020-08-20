@@ -1,7 +1,9 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
-import { LinkSettings } from './LinkSettings';
-// import { connect } from 'react-redux';
+import propTypes from 'prop-types';
+import { Redirect } from 'react-router-dom';
+import { connect } from 'react-redux';
+import { dataPlayerAction, fetchTokenThunk, fetchTriviaThunk } from '../actions';
+import LinkSettings from './LinkSettings';
 
 class Player extends React.Component {
   constructor(props) {
@@ -9,29 +11,34 @@ class Player extends React.Component {
     this.state = {
       name: '',
       email: '',
-      btn: true,
+      goToGame: false,
     };
     this.handleChange = this.handleChange.bind(this);
-    this.checkForm = this.checkForm.bind(this);
+    this.provokeApis = this.provokeApis.bind(this);
   }
 
   handleChange(e) {
     const { name, value } = e.target;
     this.setState({ [name]: value });
-    this.checkForm();
   }
 
-  checkForm() {
+  provokeApis() {
+    const { getDataPlayer, getToken, getTrivia, token } = this.props;
     const { name, email } = this.state;
-    if (!name && !email) {
-      this.setState({ btn: false });
-    }
+    getDataPlayer(name, email);
+    // getToken();
+    // getTrivia(token);
+    getToken()
+      .then(() => getTrivia(token))
+      .then(() => localStorage.setItem('token', token));
+    this.setState({ goToGame: true });
   }
 
   render() {
-    // const { myState, myFunction } = this.props;
+    const { name, email, goToGame } = this.state;
     return (
       <div>
+        {goToGame && <Redirect to="/game" />}
         <input
           type="text"
           placeholder="name"
@@ -41,34 +48,40 @@ class Player extends React.Component {
         />
         <input
           type="email"
-          placeholder="email" data-testid="input-gravatar-email"
+          placeholder="email"
+          data-testid="input-gravatar-email"
           name="email"
           onChange={this.handleChange}
         />
-        <Link to="/game">
-          <button
-            className="btn-play"
-            type="button"
-            data-testid="btn-play"
-            disabled={this.state.btn}
-          >
-            Jogar
-          </button>
-        </Link>
+        <button
+          type="button"
+          data-testid="btn-play"
+          disabled={!(name && email)}
+          onClick={this.provokeApis}
+        >
+          Jogar
+        </button>
         <LinkSettings />
       </div>
     );
   }
 }
 
-// const mapStateToProps = (state) => ({
-//  myState: state.myReducer.key,
-// })
+const mapStateToProps = (state) => ({
+  token: state.fetchToken.token,
+});
 
-// const mapDispatchToProps = (dispatch) => ({
-//  myFunction: (e) => dispatch(myAction(e))
-// });
+const mapDispatchToProps = (dispatch) => ({
+  getDataPlayer: (name, email) => dispatch(dataPlayerAction(name, email)),
+  getToken: (e) => dispatch(fetchTokenThunk(e)),
+  getTrivia: (tokn) => dispatch(fetchTriviaThunk(tokn)),
+});
 
-// export default connect(mapStateToProps, mapDispatchToProps)(Player);
+Player.propTypes = {
+  token: propTypes.string.isRequired,
+  getDataPlayer: propTypes.func.isRequired,
+  getToken: propTypes.func.isRequired,
+  getTrivia: propTypes.func.isRequired,
+};
 
-export default Player;
+export default connect(mapStateToProps, mapDispatchToProps)(Player);

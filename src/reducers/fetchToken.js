@@ -2,7 +2,7 @@ import { REQUEST, DATA, FAILURE } from '../actions';
 
 const initialState = {
   isFetching: false,
-  data: [],
+  token: '',
   error: '',
 };
 
@@ -16,7 +16,7 @@ function fetchToken(state = initialState, action) {
       return {
         ...state,
         isFetching: false,
-        data: action.data,
+        token: action.data,
       };
     case FAILURE:
       return {
