@@ -15,7 +15,8 @@ class Game extends React.Component {
 
   next() {
     const { i } = this.state;
-    this.setState = ({i: (i+1)});
+    if (i<4) return this.setState({ i: (i+1) });
+    else if (i === 4) return this.setState({ i: 0 });
   }
 
   render() {
@@ -34,6 +35,8 @@ class Game extends React.Component {
               incorrect={dataGame[i].incorrect_answers}
             />
             <br />
+
+            {/* Após a resposta ser dada, o botão "Próxima" deve aparecer */}
             <button data-testid="btn-next" onClick={this.next}>Próxima</button>
           </div>
         )}
