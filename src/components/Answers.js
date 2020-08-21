@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 
 class Answers extends React.Component {
@@ -6,7 +7,7 @@ class Answers extends React.Component {
     const { correct, incorrect } = this.props;
     return (
       <div>
-        <p>See answer options:</p>
+        <p>Choose between one of these answer options:</p>
         <button data-testid="correct-answer">{correct}</button>
         {incorrect.map((answer, index) => (
           <button
@@ -28,6 +29,11 @@ const mapStateToProps = (state) => ({
 // const mapDispatchToProps = (dispatch) => ({
 //   // myFunction: (e) => dispatch(myAction(e))
 // });
+
+Answers.propTypes = {
+  correct: PropTypes.string.isRequired,
+  incorrect: PropTypes.arrayOf(PropTypes.string).isRequired,
+};
 
 export default connect(mapStateToProps, null)(Answers);
 // export default Answers;
