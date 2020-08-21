@@ -10,7 +10,7 @@ class Game extends React.Component {
     super(props);
     this.state = {
       i: 0,
-    }
+    };
     this.next = this.next.bind(this);
   }
 
@@ -18,8 +18,13 @@ class Game extends React.Component {
     const { clearAnswered } = this.props;
     clearAnswered();
     const { i } = this.state;
-    if (i<4) return this.setState({ i: (i+1) });
-    else if (i === 4) return this.setState({ i: 0});
+    if (i < 4) {
+      return this.setState( { i: (i + 1) } );
+    }
+    else if (i === 4) {
+      return this.setState( { i: 0} );
+    }
+    return this.setState( { i: i });
   }
 
   render() {
@@ -33,12 +38,12 @@ class Game extends React.Component {
             <Header />
             <p data-testid="question-category">Category - {dataGame[i].category}</p>
             <p data-testid="question-text">Question - {dataGame[i].question}</p>
-            <Answers 
+            <Answers
               correct={dataGame[i].correct_answer}
               incorrect={dataGame[i].incorrect_answers}
               i={i}
             />
-            </div>  
+            </div>
         )}
         {answeredOne && (
         <button

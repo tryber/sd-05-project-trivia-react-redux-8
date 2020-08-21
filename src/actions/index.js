@@ -84,11 +84,11 @@ export function fetchTriviaThunk(token) {
 export function answeredAction() {
   return {
     type: ANSWERED,
-  }
+  };
 }
 
 export function clearAction() {
   return {
     type: CLEAR,
-  }
+  };
 }

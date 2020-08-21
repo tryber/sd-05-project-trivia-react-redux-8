@@ -8,7 +8,7 @@ class Answers extends React.Component {
     super(props);
     this.state = {
       // answeredOne: false,
-    }
+    };
     this.answered = this.answered.bind(this);
   }
 
@@ -27,27 +27,25 @@ class Answers extends React.Component {
           data-testid="correct-answer"
           onClick={this.answered}
           disabled={answeredOne}
-          className={answeredOne ? "green-border" : null}
+          className={answeredOne ? 'green-border' : null}
         >
           {correct}
         </button>
-        {incorrect.map((answer, index) => {
-          const { answeredOne } = this.props;
-          return (
+        {incorrect.map((answer, index) => (
           <button
             key={answer}
-            className={answeredOne ? "red-border" : null}
+            className={answeredOne ? 'red-border' : null}
             data-testid={`wrong-answer-${index}`}
             onClick={this.answered}
             disabled={answeredOne}
           >
             {answer}
           </button>
-        )}
-        )}
-        </div>
-      )}
+        ))}
+      </div>
+    );
   }
+}
 
 const mapStateToProps = (state) => ({
   dataGame: state.fetchApis.dataGame,
@@ -61,6 +59,8 @@ const mapDispatchToProps = (dispatch) => ({
 Answers.propTypes = {
   correct: PropTypes.string.isRequired,
   incorrect: PropTypes.arrayOf(PropTypes.string).isRequired,
+  answeredOne: PropTypes.bool.isRequired,
+  answerRedux: PropTypes.func.isRequired,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(Answers);

@@ -17,8 +17,10 @@ class Score extends React.Component {
         </section>
         <section>
           <h3>See your results:</h3>
-          {/* <p data-testid="feedback-total-score">Your total score is {score} points</p>
-          <p data-testid="feedback-total-question">...Because you got {correct} answers right.</p> */}
+          {/* <p data-testid="feedback-total-score">
+          Your total score is {score} points</p>
+          <p data-testid="feedback-total-question">
+          ...Because you got {correct} answers right.</p> */}
         </section>
         <Link to="/">
           <button type="button" data-testid="btn-play-again">

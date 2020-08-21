@@ -26,7 +26,7 @@ class Player extends React.Component {
     const { getDataPlayer, getToken, getTrivia, token } = this.props;
     const { name, email } = this.state;
     getDataPlayer(name, email);
-    //promise para ter as duas requisiçoes na sequência certa 
+    // promise para ter as duas requisiçoes na sequência certa
     getToken().then(() => {
       getTrivia(token);
       localStorage.setItem('token', token);
@@ -78,7 +78,7 @@ const mapDispatchToProps = (dispatch) => ({
 });
 
 Player.propTypes = {
-  // token: propTypes.string.isRequired,
+  token: propTypes.string.isRequired,
   getDataPlayer: propTypes.func.isRequired,
   getToken: propTypes.func.isRequired,
   getTrivia: propTypes.func.isRequired,
