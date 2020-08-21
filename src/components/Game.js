@@ -19,12 +19,11 @@ class Game extends React.Component {
     clearAnswered();
     const { i } = this.state;
     if (i < 4) {
-      return this.setState( { i: (i + 1) } );
+      return this.setState({ i: (i + 1) });
+    } else if (i === 4) {
+      return this.setState({ i: 0 });
     }
-    else if (i === 4) {
-      return this.setState( { i: 0} );
-    }
-    return this.setState( { i: i });
+    return this.setState({ i });
   }
 
   render() {
