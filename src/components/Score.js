@@ -18,7 +18,7 @@ class Score extends React.Component {
         <section>
           <h3>See your results:</h3>
           {/* <p data-testid="feedback-total-score">Your total score is {score} points</p>
-          <p data-testid="feedback-total-question">...Because you got {assertions} answers right.</p> */}
+          <p data-testid="feedback-total-question">...Because you got {correct} answers right.</p> */}
         </section>
         <Link to="/">
           <button type="button" data-testid="btn-play-again">
@@ -36,13 +36,15 @@ class Score extends React.Component {
 }
 
 // const mapStateToProps = (state) => ({
-//   score: 
-// })
-
-// const mapDispatchToProps = (dispatch) => ({
-//   // myFunction: (e) => dispatch(myAction(e))
+//   score: state.someReducer.name,
+//   correct: state.someReducer.email,
 // });
 
-// export default connect(mapStateToProps, mapDispatchToProps)(Score);
+// Score.propTypes = {
+//   score: PropTypes.number.isRequired,
+//   correct: PropTypes.number.isRequired,
+// };
+
+// export default connect(mapStateToProps, null)(Score);
 
 export default Score;
