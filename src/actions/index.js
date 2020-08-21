@@ -4,6 +4,8 @@ export const REQUEST_TRIVIA = 'REQUEST_TRIVIA';
 export const DATA_TRIVIA = 'DATA_TRIVIA';
 export const FAILURE = 'FAILURE';
 export const DATA_PLAYER = 'DATA_PLAYER';
+export const ANSWERED = 'ANSWERED';
+export const CLEAR = 'CLEAR';
 
 export function dataPlayerAction(name, email) {
   return {
@@ -77,4 +79,16 @@ export function fetchTriviaThunk(token) {
         // (error) => dispatch(failureAllAction(error)),
       );
   };
+}
+
+export function answeredAction() {
+  return {
+    type: ANSWERED,
+  }
+}
+
+export function clearAction() {
+  return {
+    type: CLEAR,
+  }
 }

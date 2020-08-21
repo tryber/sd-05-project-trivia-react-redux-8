@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import Header from './Header';
 import Answers from './Answers';
+import { clearAction } from '../actions';
 
 class Game extends React.Component {
   constructor(props) {
@@ -14,13 +15,15 @@ class Game extends React.Component {
   }
 
   next() {
+    const { clearAnswered } = this.props;
+    clearAnswered();
     const { i } = this.state;
     if (i<4) return this.setState({ i: (i+1) });
-    else if (i === 4) return this.setState({ i: 0 });
+    else if (i === 4) return this.setState({ i: 0});
   }
 
   render() {
-    const { dataGame, isFetching } = this.props;
+    const { dataGame, isFetching, answeredOne } = this.props;
     const { i } = this.state;
     return (
       <div>
@@ -33,12 +36,17 @@ class Game extends React.Component {
             <Answers 
               correct={dataGame[i].correct_answer}
               incorrect={dataGame[i].incorrect_answers}
+              i={i}
             />
-            <br />
-
-            {/* Após a resposta ser dada, o botão "Próxima" deve aparecer */}
-            <button data-testid="btn-next" onClick={this.next}>Próxima</button>
-          </div>
+            </div>  
+        )}
+        {answeredOne && (
+        <button
+          data-testid="btn-next"
+          onClick={this.next}
+        >
+          Próxima
+        </button>
         )}
       </div>
     );
@@ -48,16 +56,19 @@ class Game extends React.Component {
 const mapStateToProps = (state) => ({
   dataGame: state.fetchApis.dataGame,
   isFetching: state.fetchApis.isFetching,
+  answeredOne: state.answeredReducer.answeredOne,
 });
 
-// const mapDispatchToProps = (dispatch) => ({
-//   // myFunction: (e) => dispatch(myAction(e))
-// });
+const mapDispatchToProps = (dispatch) => ({
+  clearAnswered: (e) => dispatch(clearAction(e)),
+});
 
 Game.propTypes = {
   dataGame: PropTypes.arrayOf(PropTypes.object).isRequired,
   isFetching: PropTypes.bool.isRequired,
+  answeredOne: PropTypes.bool.isRequired,
+  clearAnswered: PropTypes.func.isRequired,
 };
 
-export default connect(mapStateToProps, null)(Game);
+export default connect(mapStateToProps, mapDispatchToProps)(Game);
 // export default Game;
