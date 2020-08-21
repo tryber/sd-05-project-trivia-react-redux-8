@@ -1,12 +1,13 @@
-import { REQUEST_TOKEN, DATA_TOKEN, FAILURE } from '../actions';
+import { REQUEST_TOKEN, DATA_TOKEN, REQUEST_TRIVIA, DATA_TRIVIA, FAILURE } from '../actions';
 
 const initialState = {
   isFetching: false,
   token: '',
+  dataGame: [],
   error: '',
 };
 
-function fetchToken(state = initialState, action) {
+function fetchApis(state = initialState, action) {
   switch (action.type) {
     case REQUEST_TOKEN:
       return {
@@ -17,6 +18,16 @@ function fetchToken(state = initialState, action) {
         ...state,
         isFetching: false,
         token: action.tok,
+      };
+    case REQUEST_TRIVIA:
+      return {
+        ...state, isFetching: true,
+      };
+    case DATA_TRIVIA:
+      return {
+        ...state,
+        isFetching: false,
+        dataGame: action.dataGame,
       };
     case FAILURE:
       return {
@@ -29,4 +40,4 @@ function fetchToken(state = initialState, action) {
   }
 }
 
-export default fetchToken;
+export default fetchApis;

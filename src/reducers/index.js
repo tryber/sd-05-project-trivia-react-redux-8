@@ -1,14 +1,12 @@
 import { combineReducers } from 'redux';
-import fetchGravatar from './fetchGravatar';
-import fetchToken from './fetchToken';
-import fetchTrivia from './fetchTrivia';
+import fetchApis from './fetchApis';
 import dataPlayerReducer from './dataPlayer';
+import answeredReducer from './answeredReducer';
 
 const rootReducer = combineReducers({
-  fetchGravatar,
-  fetchToken,
-  fetchTrivia,
+  fetchApis,
   dataPlayerReducer,
+  answeredReducer,
 });
 
 export default rootReducer;

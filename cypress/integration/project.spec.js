@@ -100,7 +100,7 @@ describe('Só deve ser possível escolher uma resposta correta por pergunta', ()
   });
 });
 
-describe('Ao clicar em uma resposta, a resposta correta deve ficar verde e as incorretas, vermelhas', () => {
+describe.only('Ao clicar em uma resposta, a resposta correta deve ficar verde e as incorretas, vermelhas', () => {
   beforeEach(() => {
     cy.visit('http://localhost:3000/');
     cy.clearLocalStorage();
@@ -310,7 +310,7 @@ describe('A pessoa que joga deve ter acesso à tela de configurações através 
   });
 });
 
-describe.only('A pessoa jogadora deve iniciar um jogo', () => {
+describe('A pessoa jogadora deve iniciar um jogo', () => {
   beforeEach(() => {
     cy.visit('http://localhost:3000/');
     cy.clearLocalStorage();

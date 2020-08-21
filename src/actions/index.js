@@ -4,8 +4,8 @@ export const REQUEST_TRIVIA = 'REQUEST_TRIVIA';
 export const DATA_TRIVIA = 'DATA_TRIVIA';
 export const FAILURE = 'FAILURE';
 export const DATA_PLAYER = 'DATA_PLAYER';
-export const REQUEST_GRAVATAR = 'REQUEST_TRIVIA';
-export const DATA_GRAVATAR = 'DATA_TRIVIA';
+export const ANSWERED = 'ANSWERED';
+export const CLEAR = 'CLEAR';
 
 export function dataPlayerAction(name, email) {
   return {
@@ -41,39 +41,10 @@ export function successTriviaAction(dataGame) {
   };
 }
 
-export function requestGravatarAction() {
-  return {
-    type: REQUEST_GRAVATAR,
-  };
-}
-
-export function successGravatarAction(grav) {
-  return {
-    type: DATA_GRAVATAR,
-    grav,
-  };
-}
-
 export function failureAllAction(error) {
   return {
     type: FAILURE,
     error,
-  };
-}
-
-const apiGravatar = 'url';
-export function fetchGravatarThunk() {
-  return (dispatch) => {
-    dispatch(requestGravatarAction());
-    return fetch(apiGravatar)
-      .then((response) => response.json())
-      .then(
-        (data) => {
-          console.log(data);
-          return dispatch(successGravatarAction(data));
-        },
-        (error) => dispatch(failureAllAction(error.message)),
-      );
   };
 }
 
@@ -103,9 +74,21 @@ export function fetchTriviaThunk(token) {
       .then(
         (data) => {
           console.log(data);
-          return dispatch(successTriviaAction(data));
+          return dispatch(successTriviaAction(data.results));
         },
-        (error) => dispatch(failureAllAction(error)),
+        // (error) => dispatch(failureAllAction(error)),
       );
+  };
+}
+
+export function answeredAction() {
+  return {
+    type: ANSWERED,
+  };
+}
+
+export function clearAction() {
+  return {
+    type: CLEAR,
   };
 }

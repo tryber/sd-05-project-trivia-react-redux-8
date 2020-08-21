@@ -1,39 +1,78 @@
 import React from 'react';
-// import { connect } from 'react-redux';
+import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
 import Header from './Header';
+import Answers from './Answers';
+import { clearAction } from '../actions';
 
 class Game extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      i: 0,
+    };
+    this.next = this.next.bind(this);
+  }
+
+  next() {
+    const { clearAnswered } = this.props;
+    clearAnswered();
+    const { i } = this.state;
+    if (i < 4) {
+      return this.setState({ i: (i + 1) });
+    } else if (i === 4) {
+      return this.setState({ i: 0 });
+    }
+    return this.setState({ i });
+  }
+
   render() {
-    // const { dataQuestion, dataCorrectAnswer, myFunction } = this.props
+    const { dataGame, isFetching, answeredOne } = this.props;
+    const { i } = this.state;
     return (
       <div>
-        <Header />
-        {/* Pergunta e suas alternativas (todo interdependente até 8.)
-        Recebidas da API do Trivia em ordem aleatoria, usar button para alternativas.
-        Só deve ser possível escolher uma resposta correta por pergunta
-        Ao clicar em uma resposta, a resposta correta deve ficar verde e as incorretas, vermelhas
-        A pessoa que joga tem 30 segundos para responder cada pergunta
-        Ao clicar na resposta correta, pontos devem ser somados no placar da pessoa que está jogando
-        Após a resposta ser dada, o botão "Próxima" deve aparecer
-        A pessoa que joga deve responder 5 perguntas no total  */}
+        {isFetching && <p>Loading...</p>}
+        {!isFetching && dataGame.length > 0 && (
+          <div>
+            <Header />
+            <p data-testid="question-category">Category - {dataGame[i].category}</p>
+            <p data-testid="question-text">Question - {dataGame[i].question}</p>
+            <Answers
+              correct={dataGame[i].correct_answer}
+              incorrect={dataGame[i].incorrect_answers}
+              i={i}
+            />
+            </div>
+        )}
+        {answeredOne && (
+        <button
+          data-testid="btn-next"
+          onClick={this.next}
+        >
+          Próxima
+        </button>
+        )}
       </div>
     );
   }
 }
 
-// const mapStateToProps = (state) => ({
-// para acessar o objeto do reducer fetchTrivia
-// que tem a chave dataGame cujo valor é recebido pela api
-// sabendo que dataGame é um array de 5 objetos dentro dos quais tem perguntas e respostas
-// Sugestao:
-// dataQuestion: state.fetchTrivia.dataGame.results.questions,
-// dataCorrectAnswer: state.fetchTrivia.dataGame.results.correct_answers,
+const mapStateToProps = (state) => ({
+  dataGame: state.fetchApis.dataGame,
+  isFetching: state.fetchApis.isFetching,
+  answeredOne: state.answeredReducer.answeredOne,
+});
 
+const mapDispatchToProps = (dispatch) => ({
+  clearAnswered: (e) => dispatch(clearAction(e)),
+});
 
-// const mapDispatchToProps = (dispatch) => ({
-//   // myFunction: (e) => dispatch(myAction(e))
-// });
+Game.propTypes = {
+  dataGame: PropTypes.arrayOf(PropTypes.object).isRequired,
+  isFetching: PropTypes.bool.isRequired,
+  answeredOne: PropTypes.bool.isRequired,
+  clearAnswered: PropTypes.func.isRequired,
+};
 
-// export default connect(mapStateToProps, mapDispatchToProps)(Game);
-
-export default Game;
+export default connect(mapStateToProps, mapDispatchToProps)(Game);
+// export default Game;
