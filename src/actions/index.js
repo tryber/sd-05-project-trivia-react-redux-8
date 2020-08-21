@@ -72,7 +72,7 @@ export function fetchTriviaThunk(token) {
       .then(
         (data) => {
           console.log(data);
-          return dispatch(successTriviaAction(data));
+          return dispatch(successTriviaAction(data.results));
         },
         // (error) => dispatch(failureAllAction(error)),
       );

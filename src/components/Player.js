@@ -1,6 +1,3 @@
-//player certo do dia 20/08 noite
-//na maquina do Giu, sem push pois està fazendo Game.
-
 import React from 'react';
 import propTypes from 'prop-types';
 import { Redirect } from 'react-router-dom';
@@ -71,7 +68,7 @@ class Player extends React.Component {
 }
 
 const mapStateToProps = (state) => ({
-  token: state.fetchToken.token,
+  token: state.fetchApis.token,
 });
 
 const mapDispatchToProps = (dispatch) => ({
@@ -88,4 +85,3 @@ Player.propTypes = {
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(Player);
-

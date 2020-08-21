@@ -1,11 +1,9 @@
 import { combineReducers } from 'redux';
-import fetchToken from './fetchToken';
-import fetchTrivia from './fetchTrivia';
+import fetchApis from './fetchApis';
 import dataPlayerReducer from './dataPlayer';
 
 const rootReducer = combineReducers({
-  fetchToken,
-  fetchTrivia,
+  fetchApis,
   dataPlayerReducer,
 });
 

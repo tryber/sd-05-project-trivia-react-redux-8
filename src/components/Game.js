@@ -1,38 +1,48 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import Header from './Header';
+import Answers from './Answers';
 
 class Game extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      i: 0,
+    }
+    this.next = this.next.bind(this);
+  }
+
+  next() {
+    const { i } = this.state;
+    this.setState = ({i: (i+1)});
+  }
+
   render() {
-    // const { dataCategory, dataQuestion, dataCorrectAnswer, dataWrongAnswer, fetchTrivia } = this.props;
-    const { dataGame } = this.props;
+    const { dataGame, isFetching } = this.props;
+    const { i } = this.state;
     return (
       <div>
-        <Header />
-        <section>
-          {/* <p data-testid="question-category">{dataCategory}</p>
-          <p data-testid="question-text">{dataQuestion}</p>
+        {isFetching && <p>Loading...</p>}
+        {!isFetching && dataGame.length > 0 && (
           <div>
-            {dataWrongAnswer.map((answer, index) => (<button data-testid={`wrong-answer-${index}`}>{dataWrongAnswer[index]}</button>))}
+            <Header />
+            <p data-testid="question-category">Category - {dataGame[i].category}</p>
+            <p data-testid="question-category">Question - {dataGame[i].question}</p>
+            <Answers 
+              correct={dataGame[i].correct_answer}
+              incorrect={dataGame[i].incorrect_answers}
+            />
+            <button data-testid="btn-next" onClick={this.next}>Próxima</button>
           </div>
-          <button data-testid="correct-answer">{dataCorrectAnswer}</button> */}
-          {dataGame}
-        </section>
+        )}
       </div>
     );
   }
 }
 
-// para acessar o objeto do reducer fetchTrivia
-// que tem a chave dataGame cujo valor é recebido pela api
-// sabendo que dataGame é um array de 5 objetos dentro dos quais tem perguntas e respostas
-// Sugestao:
 const mapStateToProps = (state) => ({
-  dataGame: state.fetchTrivia.dataGame,
-  // dataCategory: state.fetchTrivia.dataGame.results.category,
-  // dataQuestion: state.fetchTrivia.dataGame.results.question,
-  // dataCorrectAnswer: state.fetchTrivia.dataGame.results.correct_answer,
-  // dataWrongAnswer: state.fetchTrivia.dataGame.results.incorrect_answer[0]
+  dataGame: state.fetchApis.dataGame,
+  isFetching: state.fetchApis.isFetching,
 });
 
 // const mapDispatchToProps = (dispatch) => ({
