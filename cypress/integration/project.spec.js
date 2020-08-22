@@ -130,7 +130,7 @@ describe('Ao clicar em uma resposta, a resposta correta deve ficar verde e as in
   });
 });
 
-describe.only('A pessoa que joga tem 30 segundos para responder cada pergunta', () => {
+describe('A pessoa que joga tem 30 segundos para responder cada pergunta', () => {
   beforeEach(() => {
     cy.visit('http://localhost:3000/');
     cy.clearLocalStorage();
@@ -202,7 +202,7 @@ describe('Após a resposta ser dada, o botão "Próxima" deve aparecer', () => {
   });
 });
 
-describe('A pessoa que joga deve responder 5 perguntas no total', () => {
+describe.only('A pessoa que joga deve responder 5 perguntas no total', () => {
   beforeEach(() => {
     cy.visit('http://localhost:3000/');
     cy.clearLocalStorage();

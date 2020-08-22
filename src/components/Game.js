@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { Redirect } from 'react-router-dom';
 import { connect } from 'react-redux';
 import Header from './Header';
 import Answers from './Answers';
@@ -11,6 +12,7 @@ class Game extends React.Component {
     this.state = {
       i: 0,
       count: 30,
+      numberQuestions: 1,
     };
     this.next = this.next.bind(this);
     this.beginTimer = this.beginTimer.bind(this);
@@ -42,8 +44,10 @@ class Game extends React.Component {
   next() {
     const { clearAnswered } = this.props;
     clearAnswered();
-    this.setState({ count: 30});
+    this.setState({ count: 30 });
     this.beginTimer();
+    const { numberQuestions } = this.state;
+    this.setState({ numberQuestions: numberQuestions + 1 });
     const { i } = this.state;
     if (i < 4) {
       return this.setState({ i: i + 1 });
@@ -55,13 +59,14 @@ class Game extends React.Component {
 
   render() {
     const { dataGame, isFetching, answeredOne } = this.props;
-    const { i, count } = this.state;
+    const { i, count, numberQuestions } = this.state;
     return (
       <div>
         {isFetching && <p>Loading...</p>}
         {!isFetching && dataGame.length > 0 && (
           <div>
             <Header />
+            <p>Hi there! You are in for exactly 5 questions.</p>
             <p data-testid="question-category">Category - {dataGame[i].category}</p>
             <p data-testid="question-text">Question - {dataGame[i].question}</p>
             <Answers
@@ -77,6 +82,7 @@ class Game extends React.Component {
             Próxima
           </button>
         )}
+        {numberQuestions === 6 && <Redirect to="/score" />}
       </div>
     );
   }
