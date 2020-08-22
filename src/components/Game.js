@@ -30,7 +30,7 @@ class Game extends React.Component {
       answerRedux();
     }
   }
-  
+
   beginTimer() {
     this.myInterval = setInterval(() => {
       this.setState((prevState) => ({
