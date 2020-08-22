@@ -150,7 +150,7 @@ describe('A pessoa que joga tem 30 segundos para responder cada pergunta', () =>
   });
 });
 
-describe('Ao clicar na resposta correta, pontos devem ser somados no placar da pessoa que está jogando', () => {
+describe.only('Ao clicar na resposta correta, pontos devem ser somados no placar da pessoa que está jogando', () => {
   beforeEach(() => {
     cy.visit('http://localhost:3000/');
     cy.clearLocalStorage();
@@ -202,7 +202,7 @@ describe('Após a resposta ser dada, o botão "Próxima" deve aparecer', () => {
   });
 });
 
-describe.only('A pessoa que joga deve responder 5 perguntas no total', () => {
+describe('A pessoa que joga deve responder 5 perguntas no total', () => {
   beforeEach(() => {
     cy.visit('http://localhost:3000/');
     cy.clearLocalStorage();

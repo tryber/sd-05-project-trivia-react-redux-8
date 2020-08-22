@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
+import { MD5 } from 'crypto-js';
 import { answeredAction, playerScoreAction } from '../actions';
 
 class Answers extends React.Component {
@@ -12,6 +13,7 @@ class Answers extends React.Component {
     };
     this.answered = this.answered.bind(this);
     this.calculateScore = this.calculateScore.bind(this);
+    this.storage = this.storage.bind(this);
   }
 
   answered(wasCorrect, timecount, level) {
@@ -37,10 +39,28 @@ class Answers extends React.Component {
     // now send both to redux global store state
     const { getScore } = this.props;
     getScore(score, assertions);
+    // finally take care of localstorage, has to be done live
+    this.storage();
   }
 
-  //localStorage.setItem('state', player: { name, assertions, score, gravatarEmail })
-  //localStorage.setItem('ranking', { name: nome-da-pessoa, score: 10, picture: url-da-foto-no-gravatar });
+  storage() {
+    const { name, assertions, score, email, hash } = this.props;
+    const playerState = {
+      player: {
+        name: {name},
+        assertions: {assertions},
+        score: {score},
+        gravatarEmail: {email},
+      },
+    };
+    localStorage.setItem('state', JSON.stringify(playerState));
+    const getIntoRanking = {
+      name: {name},
+      score: {score},
+      picture: `https://www.gravatar.com/avatar/${hash}`
+    };
+    localStorage.setItem('ranking', JSON.stringify(getIntoRanking));
+  }
 
   render() {
     const { correct, incorrect, answeredOne, timecount, level } = this.props;
@@ -74,11 +94,15 @@ class Answers extends React.Component {
 const mapStateToProps = (state) => ({
   dataGame: state.fetchApis.dataGame,
   answeredOne: state.answeredReducer.answeredOne,
+  score: state.resultsPlayerReducer.name,
+  name: state.dataPlayerReducer.name,
+  email: state.dataPlayerReducer.email,
+  hash: MD5(state.dataPlayerReducer.email).toString(),
 });
 
 const mapDispatchToProps = (dispatch) => ({
   answerRedux: (e) => dispatch(answeredAction(e)),
-  getScore: (points, assertions) => dispatch(playerScoreAction(points, assertions)),
+  getScore: (points, assert) => dispatch(playerScoreAction(points, assert)),
 });
 
 Answers.propTypes = {
@@ -88,8 +112,11 @@ Answers.propTypes = {
   answerRedux: PropTypes.func.isRequired,
   getScore: PropTypes.func.isRequired,
   timecount: PropTypes.number.isRequired,
+  score: PropTypes.number.isRequired,
   level: PropTypes.string.isRequired,
+  name: PropTypes.string.isRequired,
+  email: PropTypes.string.isRequired,
+  hash: PropTypes.string.isRequired
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(Answers);
-// export default Answers;
