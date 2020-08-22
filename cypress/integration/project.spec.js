@@ -100,7 +100,7 @@ describe('Só deve ser possível escolher uma resposta correta por pergunta', ()
   });
 });
 
-describe.only('Ao clicar em uma resposta, a resposta correta deve ficar verde e as incorretas, vermelhas', () => {
+describe('Ao clicar em uma resposta, a resposta correta deve ficar verde e as incorretas, vermelhas', () => {
   beforeEach(() => {
     cy.visit('http://localhost:3000/');
     cy.clearLocalStorage();
@@ -202,7 +202,7 @@ describe('Após a resposta ser dada, o botão "Próxima" deve aparecer', () => {
   });
 });
 
-describe('A pessoa que joga deve responder 5 perguntas no total', () => {
+describe.only('A pessoa que joga deve responder 5 perguntas no total', () => {
   beforeEach(() => {
     cy.visit('http://localhost:3000/');
     cy.clearLocalStorage();
