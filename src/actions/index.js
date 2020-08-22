@@ -6,6 +6,7 @@ export const FAILURE = 'FAILURE';
 export const DATA_PLAYER = 'DATA_PLAYER';
 export const ANSWERED = 'ANSWERED';
 export const CLEAR = 'CLEAR';
+export const GET_SCORE = 'GET_SCORE';
 
 export function dataPlayerAction(name, email) {
   return {
@@ -90,5 +91,13 @@ export function answeredAction() {
 export function clearAction() {
   return {
     type: CLEAR,
+  };
+}
+
+export function playerScoreAction(points, assert) {
+  return {
+    type: GET_SCORE,
+    points,
+    assert
   };
 }

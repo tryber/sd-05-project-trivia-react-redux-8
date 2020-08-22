@@ -72,6 +72,8 @@ class Game extends React.Component {
               correct={dataGame[i].correct_answer}
               incorrect={dataGame[i].incorrect_answers}
               i={i}
+              timecount={count}
+              level={dataGame[i].difficulty}
             />
             <p>Time you have left to answer: {count}</p>
           </div>
@@ -104,6 +106,8 @@ Game.propTypes = {
   answeredOne: PropTypes.bool.isRequired,
   clearAnswered: PropTypes.func.isRequired,
   answerRedux: PropTypes.func.isRequired,
+  timecount: PropTypes.number.isRequired,
+  level: PropTypes.string.isRequired,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(Game);
