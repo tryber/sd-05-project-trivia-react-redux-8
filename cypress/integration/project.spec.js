@@ -100,7 +100,7 @@ describe('Só deve ser possível escolher uma resposta correta por pergunta', ()
   });
 });
 
-describe.only('Ao clicar em uma resposta, a resposta correta deve ficar verde e as incorretas, vermelhas', () => {
+describe('Ao clicar em uma resposta, a resposta correta deve ficar verde e as incorretas, vermelhas', () => {
   beforeEach(() => {
     cy.visit('http://localhost:3000/');
     cy.clearLocalStorage();
@@ -130,7 +130,7 @@ describe.only('Ao clicar em uma resposta, a resposta correta deve ficar verde e 
   });
 });
 
-describe('A pessoa que joga tem 30 segundos para responder cada pergunta', () => {
+describe.only('A pessoa que joga tem 30 segundos para responder cada pergunta', () => {
   beforeEach(() => {
     cy.visit('http://localhost:3000/');
     cy.clearLocalStorage();
