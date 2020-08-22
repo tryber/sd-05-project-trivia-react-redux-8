@@ -22,16 +22,6 @@ class Game extends React.Component {
     this.beginTimer();
   }
 
-  beginTimer() {
-    this.myInterval = setInterval(() => {
-      this.setState((prevState) => ({
-        count: prevState.count - 1,
-      }));
-    }, 1000);
-  }
-
-  // [HA]{Tela Game, R5: timer} Modelo - https://www.youtube.com/watch?v=NAx76xx40jM .
-
   componentDidUpdate() {
     const { count } = this.state;
     const { answeredOne, answerRedux } = this.props;
@@ -40,6 +30,15 @@ class Game extends React.Component {
       answerRedux();
     }
   }
+  
+  beginTimer() {
+    this.myInterval = setInterval(() => {
+      this.setState((prevState) => ({
+        count: prevState.count - 1,
+      }));
+    }, 1000);
+  }
+  // [HA]{Tela Game, R5: timer} Modelo - https://www.youtube.com/watch?v=NAx76xx40jM .
 
   next() {
     const { clearAnswered } = this.props;
