@@ -7,41 +7,44 @@ import { answeredAction, playerScoreAction } from '../actions';
 class Answers extends React.Component {
   constructor(props) {
     super(props);
-    this.state = {
-      score: 0,
-      assertions: 0,
-    };
     this.answered = this.answered.bind(this);
     this.calculateScore = this.calculateScore.bind(this);
     this.storage = this.storage.bind(this);
   }
 
-  answered(wasCorrect, timecount, level) {
+  answered(event, timecount, level) {
     // first send globally state of answeredOne true
     const { answerRedux } = this.props;
     answerRedux();
     // then calculate score, only if answer was correct
-    if (wasCorrect) return this.calculateScore(timecount, level);
+    if (event.target.id === 'correct') {
+      this.calculateScore(timecount, level);
+    }
   }
   
   calculateScore(timecount, level) {
-    const { assertions, score } = this.state;
-    // add one assertion
-    this.setState({ assertions: assertions + 1 })
     // calculate points to add to score
-    const base = 10;
-    let difficulty = 0;
-    if (level === 'easy') difficulty = 1;
-    else if (level === 'medium') difficulty = 2;
-    else if (level === 'hard') difficulty = 3;
-    let totalScore = base + (timecount * difficulty);
-    this.setState({ score: score + totalScore });
-    // now send both to redux global store state
+    // let difficulty = 0;
+    // if (level === 'easy') {
+    //   difficulty += 1;
+    // } else if (level === 'medium') {
+    //   difficulty += 2;
+    // } else if (level === 'hard') {
+    //   difficulty += 3;
+    // };
+    const difficulty = {
+      easy: 1,
+      medium: 2,
+      hard: 3,
+    }
+    const totalScore = 10 + (timecount * difficulty[level]);
+    // PR Felipe, melhor jeito de calcular sem callback e if
     const { getScore } = this.props;
-    getScore(score, assertions);
-    // finally take care of localstorage, has to be done live
+    getScore(totalScore);
+    // at the end, take care of localstorage, has to be done live:
     this.storage();
   }
+  // 22/08 noite: isso finalmente calcula certo desde a primeira pergunta E acumulando. Revisar reducer para boa pratica.
 
   storage() {
     const { name, assertions, score, email, hash } = this.props;
@@ -62,6 +65,10 @@ class Answers extends React.Component {
     localStorage.setItem('ranking', JSON.stringify(getIntoRanking));
   }
 
+  // JSON.stringify https://www.w3schools.com/js/js_json_stringify.asp
+  // 22/08 noite: isso n passa no teste, tem uma questao de estado
+  // previo e proximo estado para ser resolvida.
+
   render() {
     const { correct, incorrect, answeredOne, timecount, level } = this.props;
     return (
@@ -69,7 +76,8 @@ class Answers extends React.Component {
         <p>Choose between one of these answer options:</p>
         <button
           data-testid="correct-answer"
-          onClick={() => this.answered(true, timecount, level)}
+          id="correct"
+          onClick={(e) => this.answered(e, timecount, level)}
           disabled={answeredOne}
           className={answeredOne ? 'green-border' : null}
         >
@@ -78,9 +86,10 @@ class Answers extends React.Component {
         {incorrect.map((answer, index) => (
           <button
             key={answer}
+            id="incorrect"
             className={answeredOne ? 'red-border' : null}
             data-testid={`wrong-answer-${index}`}
-            onClick={() => this.answered(false)}
+            onClick={(e) => this.answered(e, timecount, level)}
             disabled={answeredOne}
           >
             {answer}
@@ -94,7 +103,7 @@ class Answers extends React.Component {
 const mapStateToProps = (state) => ({
   dataGame: state.fetchApis.dataGame,
   answeredOne: state.answeredReducer.answeredOne,
-  score: state.resultsPlayerReducer.name,
+  score: state.dataPlayerReducer.score,
   name: state.dataPlayerReducer.name,
   email: state.dataPlayerReducer.email,
   hash: MD5(state.dataPlayerReducer.email).toString(),
@@ -102,7 +111,7 @@ const mapStateToProps = (state) => ({
 
 const mapDispatchToProps = (dispatch) => ({
   answerRedux: (e) => dispatch(answeredAction(e)),
-  getScore: (points, assert) => dispatch(playerScoreAction(points, assert)),
+  getScore: (pts) => dispatch(playerScoreAction(pts)),
 });
 
 Answers.propTypes = {

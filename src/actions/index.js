@@ -94,10 +94,9 @@ export function clearAction() {
   };
 }
 
-export function playerScoreAction(points, assert) {
+export function playerScoreAction(points) {
   return {
     type: GET_SCORE,
     points,
-    assert
   };
 }
