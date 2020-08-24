@@ -13,7 +13,7 @@ function dataPlayerReducer(state = initialStatePlayer, action) {
       return { ...state, name: action.name, email: action.email };
     case GET_SCORE:
       return {
-        ...state,       
+        ...state,     
         score: state.score + action.points,
         assertions: state.assertions + 1,
       };
