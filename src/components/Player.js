@@ -32,6 +32,16 @@ class Player extends React.Component {
       localStorage.setItem('token', token);
     });
     this.setState({ goToGame: true });
+    // iniciar um storage mesmo que vazio, contra erro "player of null"
+    const beginStorage = {
+      player: {
+        name: name,
+        assertions: 0,
+        score: 0,
+        gravatarEmail: email,
+      },
+    };
+    localStorage.setItem('state', JSON.stringify(beginStorage));
   }
 
   render() {

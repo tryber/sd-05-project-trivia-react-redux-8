@@ -1,7 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { MD5 } from 'crypto-js';
 import { answeredAction, playerScoreAction } from '../actions';
 
 class Answers extends React.Component {
@@ -9,7 +8,6 @@ class Answers extends React.Component {
     super(props);
     this.answered = this.answered.bind(this);
     this.calculateScore = this.calculateScore.bind(this);
-    this.storage = this.storage.bind(this);
   }
 
   answered(event, timecount, level) {
@@ -23,52 +21,29 @@ class Answers extends React.Component {
   }
   
   calculateScore(timecount, level) {
-    // calculate points to add to score
-    // let difficulty = 0;
-    // if (level === 'easy') {
-    //   difficulty += 1;
-    // } else if (level === 'medium') {
-    //   difficulty += 2;
-    // } else if (level === 'hard') {
-    //   difficulty += 3;
-    // };
     const difficulty = {
       easy: 1,
       medium: 2,
       hard: 3,
     }
     const totalScore = 10 + (timecount * difficulty[level]);
-    // [HA]{Game - R6} Ajuda - (melhor calculo sem callback ou if, Felipe Vieira, Grupo 2)
-    // PR: https://github.com/tryber/sd-05-project-trivia-react-redux-2/pull/4/files
     const { getScore } = this.props;
     getScore(totalScore);
-    // at the end, take care of localstorage, has to be done live:
-    this.storage();
-  }
-  // 22/08 noite: isso finalmente calcula certo desde a primeira pergunta E acumulando. Revisar reducer para boa pratica.
-
-  storage() {
-    const { name, assertions, score, email, hash } = this.props;
-    const playerState = {
+    // Now send it all to local storage
+    const { name, assertions, score, email } = this.props;
+    const NewPlayerState = {
       player: {
-        name: {name},
-        assertions: {assertions},
-        score: {score},
-        gravatarEmail: {email},
+        name: name,
+        assertions: assertions + 1,
+        score: score + totalScore,
+        gravatarEmail: email,
       },
     };
-    localStorage.setItem('state', JSON.stringify(playerState));
-    const getIntoRanking = {
-      name: {name},
-      score: {score},
-      picture: `https://www.gravatar.com/avatar/${hash}`
-    };
-    localStorage.setItem('ranking', JSON.stringify(getIntoRanking));
+    localStorage.setItem('state', JSON.stringify(NewPlayerState));
   }
 
+  // [HA]{Game - R6} Ajuda - (objeto difficulty + storage, Felipe Vieira, Grupo 2, PR: https://github.com/tryber/sd-05-project-trivia-react-redux-2/pull/4/files ).
   // JSON.stringify https://www.w3schools.com/js/js_json_stringify.asp
-  // 22/08 noite: isso n passa no teste, tem uma questao de estado
-  // previo e proximo estado para ser resolvida.
 
   render() {
     const { correct, incorrect, answeredOne, timecount, level } = this.props;
@@ -105,9 +80,9 @@ const mapStateToProps = (state) => ({
   dataGame: state.fetchApis.dataGame,
   answeredOne: state.answeredReducer.answeredOne,
   score: state.dataPlayerReducer.score,
+  assertions: state.dataPlayerReducer.assertions,
   name: state.dataPlayerReducer.name,
   email: state.dataPlayerReducer.email,
-  hash: MD5(state.dataPlayerReducer.email).toString(),
 });
 
 const mapDispatchToProps = (dispatch) => ({
@@ -126,7 +101,6 @@ Answers.propTypes = {
   level: PropTypes.string.isRequired,
   name: PropTypes.string.isRequired,
   email: PropTypes.string.isRequired,
-  hash: PropTypes.string.isRequired
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(Answers);

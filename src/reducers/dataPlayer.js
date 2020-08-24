@@ -16,9 +16,8 @@ function dataPlayerReducer(state = initialStatePlayer, action) {
         ...state,         
         score: state.score + action.points,
         assertions: state.assertions + 1,
-        }; 
-        // ! reducer puro. boa pratica outra? Como escrever '...'?
-        // tb resolver problema de placar n zerado qdo jogar novamente
+      }; 
+      // ! reducer devia ser puro. ma pratica? Escrever com spread?
     case CLEAR_SCORE:
       return {
         ...state,
@@ -27,6 +26,7 @@ function dataPlayerReducer(state = initialStatePlayer, action) {
         score: action.score,
         assertions: action.assertions,  
       }
+      // resolve problema de placar n zerado qdo jogar novamente
     default:
       return state;
   }
