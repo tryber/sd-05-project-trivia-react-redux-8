@@ -40,8 +40,12 @@ class Score extends React.Component {
         </section>
         <section>
           <h3>See your results:</h3>
-          <p>Your total score is <span data-testid="feedback-total-score">{score}</span> points.</p>
-          <p>You got <span data-testid="feedback-total-question">{assertions}</span> answers right.</p>
+          <p> Your total score is <span data-testid="feedback-total-score">{score}</span> points.</p>
+          <p>
+            You got
+            <span data-testid="feedback-total-question">{assertions}</span>
+            answers right.
+          </p>
         </section>
         <Link to="/">
           <button type="button" data-testid="btn-play-again" onClick={() => clearPlayer('', '', 0, 0)}>
