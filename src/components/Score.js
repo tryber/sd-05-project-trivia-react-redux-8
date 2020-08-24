@@ -1,29 +1,28 @@
 import React from 'react';
-// import propTypes from 'prop-types'
-// import { connect } from 'react-redux';
+import propTypes from 'prop-types';
+import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
+import { clearPlayerAction } from '../actions';
 import Header from './Header';
 
 class Score extends React.Component {
   render() {
-    // const { score, correct } = this.props;
+    const { score, assertions, clearPlayer } = this.props;
     return (
       <div>
         <Header />
         <section>
           <h3>Feedback message:</h3>
-          {/* {(correct >= 3) && <p data-testid="feedback-text">Mandou bem!</p>}
-          {(correct < 3) && <p data-testid="feedback-text">Podia ser melhor...</p>} */}
+          {(assertions >= 3) && <p data-testid="feedback-text">Mandou bem!</p>}
+          {(assertions < 3) && <p data-testid="feedback-text">Podia ser melhor...</p>}
         </section>
         <section>
           <h3>See your results:</h3>
-          {/* <p data-testid="feedback-total-score">
-          Your total score is {score} points</p>
-          <p data-testid="feedback-total-question">
-          ...Because you got {correct} answers right.</p> */}
+          <p data-testid="feedback-total-score">Your total score is {score} points.</p>
+          <p data-testid="feedback-total-question">You got {assertions} answers right.</p>
         </section>
         <Link to="/">
-          <button type="button" data-testid="btn-play-again">
+          <button type="button" data-testid="btn-play-again" onClick={() => clearPlayer('', '', 0, 0)}>
             Jogar novamente
           </button>
         </Link>
@@ -37,16 +36,19 @@ class Score extends React.Component {
   }
 }
 
-// const mapStateToProps = (state) => ({
-//   score: state.someReducer.name,
-//   correct: state.someReducer.email,
-// });
+const mapStateToProps = (state) => ({
+  score: state.dataPlayerReducer.score,
+  assertions: state.dataPlayerReducer.assertions,
+});
 
-// Score.propTypes = {
-//   score: PropTypes.number.isRequired,
-//   correct: PropTypes.number.isRequired,
-// };
+const mapDispatchToProps = (dispatch) => ({
+  clearPlayer: (n, e, s, a) => dispatch(clearPlayerAction(n, e, s, a)),
+});
 
-// export default connect(mapStateToProps, null)(Score);
+Score.propTypes = {
+  score: propTypes.number.isRequired,
+  assertions: propTypes.number.isRequired,
+  clearPlayer: propTypes.func.isRequired,
+};
 
-export default Score;
+export default connect(mapStateToProps, mapDispatchToProps)(Score);
