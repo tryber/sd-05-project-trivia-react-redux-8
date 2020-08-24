@@ -16,7 +16,7 @@ class Header extends React.Component {
         />
         {/* a imagem default do gravatar jà vai naturalmente */}
         <p data-testid="header-player-name">{name}</p>
-        <p data-testid="header-score">Placar: {score}</p>
+        <p>Placar: <span data-testid="header-score">{score}</span></p>
       </div>
     );
   }

@@ -6,8 +6,30 @@ import { clearPlayerAction } from '../actions';
 import Header from './Header';
 
 class Score extends React.Component {
+  // constructor(props) {
+  //   super(props);
+  //   this.state = {
+  //     assertions: 0,
+  //     score: 0,
+  //   };
+  //   this.storageIntoObject = this.storageIntoObject.bind(this);
+  // }
+
+  // componentDidMount() {
+  //   this.storageIntoObject();
+  // }
+
+  // storageIntoObject() {
+  //   const newData = JSON.parse(localStorage.getItem('state'));
+  //   this.setState({
+  //     assertions: newData.player.assertions,
+  //     score: newData.player.score,
+  //   });
+  // }
+
   render() {
-    const { score, assertions, clearPlayer } = this.props;
+    const { clearPlayer, assertions, score } = this.props;
+    // const { assertions, score } = this.state;
     return (
       <div>
         <Header />
@@ -18,8 +40,8 @@ class Score extends React.Component {
         </section>
         <section>
           <h3>See your results:</h3>
-          <p data-testid="feedback-total-score">Your total score is {score} points.</p>
-          <p data-testid="feedback-total-question">You got {assertions} answers right.</p>
+          <p>Your total score is <span data-testid="feedback-total-score">{score}</span> points.</p>
+          <p>You got <span data-testid="feedback-total-question">{assertions}</span> answers right.</p>
         </section>
         <Link to="/">
           <button type="button" data-testid="btn-play-again" onClick={() => clearPlayer('', '', 0, 0)}>
