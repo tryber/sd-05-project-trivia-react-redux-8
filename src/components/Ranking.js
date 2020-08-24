@@ -2,10 +2,16 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import { MD5 } from 'crypto-js';
 
+function descendingOrder(array) {
+  const sorted = array.sort((a, b) => b.score - a.score);
+  return sorted;
+}
+
 class Ranking extends React.Component {
   render() {
     const totalRanking = JSON.parse(localStorage.getItem('ranking'));
-    const orderedRanking = totalRanking.sort((a, b) => b.score - a.score);
+    // const orderedRanking = totalRanking.sort((a, b) => b.score - a.score);
+    const orderedRanking = descendingOrder(totalRanking);
     return (
       <div>
         <h1 data-testid="ranking-title">Here is the Great Trivia Ranking!</h1>
