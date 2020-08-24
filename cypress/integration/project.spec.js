@@ -636,7 +636,7 @@ describe('A pessoa jogadora tem a opção de jogar novamente', () => {
   });
 });
 
-describe('A pessoa jogadora tem a opção de visualizar a tela de _ranking_', () => {
+describe.only('A pessoa jogadora tem a opção de visualizar a tela de _ranking_', () => {
   beforeEach(() => {
     cy.visit('http://localhost:3000/');
     cy.clearLocalStorage();
