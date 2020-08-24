@@ -27,7 +27,7 @@ class Score extends React.Component {
       localStorage.setItem('ranking', JSON.stringify([newPlayerRank]));
     } else {
       const rankings = [...JSON.parse(localStorage.getItem('ranking')), newPlayerRank];
-      localStorage.setItem('ranking', JSON.stringify(rankings)); 
+      localStorage.setItem('ranking', JSON.stringify(rankings));
     }
   }
 
