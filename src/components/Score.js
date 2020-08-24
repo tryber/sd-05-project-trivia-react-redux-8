@@ -2,34 +2,39 @@ import React from 'react';
 import propTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
+import { MD5 } from 'crypto-js';
 import { clearPlayerAction } from '../actions';
 import Header from './Header';
 
 class Score extends React.Component {
-  // constructor(props) {
-  //   super(props);
-  //   this.state = {
-  //     assertions: 0,
-  //     score: 0,
-  //   };
-  //   this.storageIntoObject = this.storageIntoObject.bind(this);
-  // }
+  constructor(props) {
+    super(props);
+    this.storageRanking = this.storageRanking.bind(this);
+  }
 
-  // componentDidMount() {
-  //   this.storageIntoObject();
-  // }
+  componentDidMount() {
+    this.storageRanking();
+  }
 
-  // storageIntoObject() {
-  //   const newData = JSON.parse(localStorage.getItem('state'));
-  //   this.setState({
-  //     assertions: newData.player.assertions,
-  //     score: newData.player.score,
-  //   });
-  // }
+  storageRanking() {
+    const { name, score, hash } = this.props;
+    const newPlayerRank = {
+      name,
+      score,
+      picture: `https://www.gravatar.com/avatar/${hash}`,
+    };
+    if (!localStorage.getItem('ranking')) {
+      localStorage.setItem('ranking', JSON.stringify([newPlayerRank]));
+    } else {
+      const rankings = [...JSON.parse(localStorage.getItem('ranking')), newPlayerRank];
+      localStorage.setItem('ranking', JSON.stringify(rankings));
+    }
+  }
+
+  // [HA] Consulta do PR https://github.com/tryber/sd-05-project-trivia-react-redux-4/pull/14/files.
 
   render() {
     const { clearPlayer, assertions, score } = this.props;
-    // const { assertions, score } = this.state;
     return (
       <div>
         <Header />
@@ -63,8 +68,10 @@ class Score extends React.Component {
 }
 
 const mapStateToProps = (state) => ({
-  score: state.dataPlayerReducer.score,
   assertions: state.dataPlayerReducer.assertions,
+  name: state.dataPlayerReducer.name,
+  score: state.dataPlayerReducer.score,
+  hash: MD5(state.dataPlayerReducer.email).toString(),
 });
 
 const mapDispatchToProps = (dispatch) => ({
@@ -72,6 +79,8 @@ const mapDispatchToProps = (dispatch) => ({
 });
 
 Score.propTypes = {
+  name: propTypes.string.isRequired,
+  hash: propTypes.string.isRequired,
   score: propTypes.number.isRequired,
   assertions: propTypes.number.isRequired,
   clearPlayer: propTypes.func.isRequired,

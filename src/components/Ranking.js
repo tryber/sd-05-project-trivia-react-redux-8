@@ -1,36 +1,37 @@
 import React from 'react';
-// import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
+import { MD5 } from 'crypto-js';
+
+function descendingOrder(array) {
+  const sorted = array.sort((a, b) => b.score - a.score);
+  return sorted;
+}
 
 class Ranking extends React.Component {
   render() {
-    // const { myState, myFunction } = this.props
+    const totalRanking = JSON.parse(localStorage.getItem('ranking'));
+    // const orderedRanking = totalRanking.sort((a, b) => b.score - a.score);
+    const orderedRanking = descendingOrder(totalRanking);
     return (
       <div>
         <h1 data-testid="ranking-title">Here is the Great Trivia Ranking!</h1>
+        <ol>
+          {orderedRanking.map((player, index) => (
+            <li>
+              <img src={`https://www.gravatar.com/avatar/${MD5(player.email).toString()}`} alt="" />
+              <p data-testid={`player-name-${index}`}>{player.name}</p>
+              <p data-testid={`player-score-${index}`}>{player.score}</p>
+            </li>
+          ))}
+        </ol>
         <Link to="/">
           <button type="button" data-testid="btn-go-home">
             Voltar para o inicio
           </button>
         </Link>
-        {/* Apresentação do ranking
-        Lista criada via map: cada <li> com infos dos Headers de II e III.
-        Ou seja Gravatar, Nome (data-testid=”player-name-${index}”)
-        e pontuaçao (data-testid⁼”player-score-${index}”)
-        Ranking no localStorage. */}
       </div>
     );
   }
 }
-
-// const mapStateToProps = (state) => ({
-//   // myState: state.myReducer.key,
-// })
-
-// const mapDispatchToProps = (dispatch) => ({
-//   // myFunction: (e) => dispatch(myAction(e))
-// });
-
-// export default connect(mapStateToProps, mapDispatchToProps)(Ranking);
 
 export default Ranking;

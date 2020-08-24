@@ -31,7 +31,7 @@ class Answers extends React.Component {
     getScore(totalScore);
     // Now send it all to local storage
     const { name, assertions, score, email } = this.props;
-    const NewPlayerState = {
+    const newPlayerState = {
       player: {
         name,
         assertions: assertions + 1,
@@ -39,7 +39,7 @@ class Answers extends React.Component {
         gravatarEmail: email,
       },
     };
-    localStorage.setItem('state', JSON.stringify(NewPlayerState));
+    localStorage.setItem('state', JSON.stringify(newPlayerState));
   }
 
   // [HA]{Game - R6} Ajuda - (objeto difficulty + storage, Felipe Vieira, Grupo 2, PR: https://github.com/tryber/sd-05-project-trivia-react-redux-2/pull/4/files ).
