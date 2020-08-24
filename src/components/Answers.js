@@ -38,7 +38,8 @@ class Answers extends React.Component {
       hard: 3,
     }
     const totalScore = 10 + (timecount * difficulty[level]);
-    // PR Felipe, melhor jeito de calcular sem callback e if
+    // [HA]{Game - R6} Ajuda - (melhor calculo sem callback ou if, Felipe Vieira, Grupo 2)
+    // PR: https://github.com/tryber/sd-05-project-trivia-react-redux-2/pull/4/files
     const { getScore } = this.props;
     getScore(totalScore);
     // at the end, take care of localstorage, has to be done live:

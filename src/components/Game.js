@@ -106,8 +106,6 @@ Game.propTypes = {
   answeredOne: PropTypes.bool.isRequired,
   clearAnswered: PropTypes.func.isRequired,
   answerRedux: PropTypes.func.isRequired,
-  timecount: PropTypes.number.isRequired,
-  level: PropTypes.string.isRequired,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(Game);
