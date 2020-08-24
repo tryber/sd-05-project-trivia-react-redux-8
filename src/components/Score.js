@@ -1,5 +1,5 @@
 import React from 'react';
-import propTypes from 'prop-types'
+import propTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { clearPlayerAction } from '../actions';
@@ -18,8 +18,8 @@ class Score extends React.Component {
         </section>
         <section>
           <h3>See your results:</h3>
-          <p data-testid="feedback-total-score">Your total score is {score} points</p>
-          <p data-testid="feedback-total-question">...Because you got {assertions} answers of different difficulty levels right.</p>
+          <p data-testid="feedback-total-score">Your total score is {score} points.</p>
+          <p data-testid="feedback-total-question">You got {assertions} answers right.</p>
         </section>
         <Link to="/">
           <button type="button" data-testid="btn-play-again" onClick={() => clearPlayer('', '', 0, 0)}>
@@ -37,8 +37,8 @@ class Score extends React.Component {
 }
 
 const mapStateToProps = (state) => ({
-score: state.dataPlayerReducer.score,
-assertions: state.dataPlayerReducer.assertions,
+  score: state.dataPlayerReducer.score,
+  assertions: state.dataPlayerReducer.assertions,
 });
 
 const mapDispatchToProps = (dispatch) => ({

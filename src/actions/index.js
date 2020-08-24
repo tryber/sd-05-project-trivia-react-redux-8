@@ -108,6 +108,6 @@ export function clearPlayerAction(name, email, score, assertions) {
     name,
     email,
     score,
-    assertions
+    assertions,
   };
 }

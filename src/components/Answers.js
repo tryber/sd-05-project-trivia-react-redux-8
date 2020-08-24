@@ -19,13 +19,13 @@ class Answers extends React.Component {
       this.calculateScore(timecount, level);
     }
   }
-  
+
   calculateScore(timecount, level) {
     const difficulty = {
       easy: 1,
       medium: 2,
       hard: 3,
-    }
+    };
     const totalScore = 10 + (timecount * difficulty[level]);
     const { getScore } = this.props;
     getScore(totalScore);
@@ -33,7 +33,7 @@ class Answers extends React.Component {
     const { name, assertions, score, email } = this.props;
     const NewPlayerState = {
       player: {
-        name: name,
+        name,
         assertions: assertions + 1,
         score: score + totalScore,
         gravatarEmail: email,
@@ -98,6 +98,7 @@ Answers.propTypes = {
   getScore: PropTypes.func.isRequired,
   timecount: PropTypes.number.isRequired,
   score: PropTypes.number.isRequired,
+  assertions: PropTypes.number.isRequired,
   level: PropTypes.string.isRequired,
   name: PropTypes.string.isRequired,
   email: PropTypes.string.isRequired,

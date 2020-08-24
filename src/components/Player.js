@@ -35,7 +35,7 @@ class Player extends React.Component {
     // iniciar um storage mesmo que vazio, contra erro "player of null"
     const beginStorage = {
       player: {
-        name: name,
+        name,
         assertions: 0,
         score: 0,
         gravatarEmail: email,

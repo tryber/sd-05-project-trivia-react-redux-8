@@ -6,7 +6,7 @@ import answeredReducer from './answeredReducer';
 const rootReducer = combineReducers({
   fetchApis,
   dataPlayerReducer,
-  answeredReducer
+  answeredReducer,
 });
 
 export default rootReducer;
