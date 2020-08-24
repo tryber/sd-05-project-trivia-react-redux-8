@@ -10,7 +10,7 @@ class Ranking extends React.Component {
       <div>
         <h1 data-testid="ranking-title">Here is the Great Trivia Ranking!</h1>
         <ol>
-          {orderedRanking.map((player, index) => (            
+          {orderedRanking.map((player, index) => (
             <li>
               <img src={`https://www.gravatar.com/avatar/${MD5(player.email).toString()}`} alt="" />
               <p data-testid={`player-name-${index}`}>{player.name}</p>

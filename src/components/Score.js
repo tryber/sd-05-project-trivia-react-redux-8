@@ -8,7 +8,7 @@ import Header from './Header';
 
 class Score extends React.Component {
   constructor(props) {
-    super(props); 
+    super(props);
     this.storageRanking = this.storageRanking.bind(this);
   }
 
@@ -25,11 +25,14 @@ class Score extends React.Component {
     };
     if (!localStorage.getItem('ranking')) {
       localStorage.setItem('ranking', JSON.stringify([newPlayerRank]));
-    } else { localStorage.setItem('ranking', ([...JSON.parse(localStorage.getItem('ranking')), newPlayerRank]));
-    };
+    } else {
+      localStorage.setItem('ranking', (
+        [...JSON.parse(localStorage.getItem('ranking')), newPlayerRank]
+      ));
+    }
   }
 
-  // [HA] Consulta do PR https://github.com/tryber/sd-05-project-trivia-react-redux-4/pull/14/files 
+  // [HA] Consulta do PR https://github.com/tryber/sd-05-project-trivia-react-redux-4/pull/14/files.
 
   render() {
     const { clearPlayer, assertions, score } = this.props;
@@ -67,7 +70,7 @@ class Score extends React.Component {
 
 const mapStateToProps = (state) => ({
   assertions: state.dataPlayerReducer.assertions,
-  name: state.dataPlayerReducer.name,  
+  name: state.dataPlayerReducer.name,
   score: state.dataPlayerReducer.score,
   hash: MD5(state.dataPlayerReducer.email).toString(),
 });
