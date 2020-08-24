@@ -13,11 +13,11 @@ function dataPlayerReducer(state = initialStatePlayer, action) {
       return { ...state, name: action.name, email: action.email };
     case GET_SCORE:
       return {
-        ...state,     
+        ...state,
         score: state.score + action.points,
         assertions: state.assertions + 1,
       };
-      // ! reducer devia ser puro. ma pratica? Escrever com spread?
+    // ! reducer devia ser puro. ma pratica? Escrever com spread?
     case CLEAR_SCORE:
       return {
         ...state,
@@ -26,7 +26,7 @@ function dataPlayerReducer(state = initialStatePlayer, action) {
         score: action.score,
         assertions: action.assertions,
       };
-      // resolve problema de placar n zerado qdo jogar novamente
+    // resolve problema de placar n zerado qdo jogar novamente
     default:
       return state;
   }
