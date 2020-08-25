@@ -74,6 +74,7 @@ class Game extends React.Component {
             <Answers
               correct={dataGame[i].correct_answer}
               incorrect={dataGame[i].incorrect_answers}
+              allAnswers={[...dataGame[i].incorrect_answers, dataGame[i].correct_answer]}
               i={i}
               timecount={count}
               level={dataGame[i].difficulty}

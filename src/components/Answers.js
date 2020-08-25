@@ -79,6 +79,9 @@ class Answers extends React.Component {
   }
 }
 
+// allAnswers put into the shuffle function
+// randomAllAnswers rendering: map and condition to render all the logic and events above.
+
 const mapStateToProps = (state) => ({
   dataGame: state.fetchApis.dataGame,
   answeredOne: state.answeredReducer.answeredOne,
