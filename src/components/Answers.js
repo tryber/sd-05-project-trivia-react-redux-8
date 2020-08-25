@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { answeredAction, playerScoreAction } from '../actions';
 import decodeEntities from '../services/decodeEntities';
-import shuffleArray from '../services/shuffleArray';
+// import shuffleArray from '../services/shuffleArray';
 
 class Answers extends React.Component {
   constructor(props) {
@@ -48,7 +48,8 @@ class Answers extends React.Component {
   // JSON.stringify https://www.w3schools.com/js/js_json_stringify.asp
 
   render() {
-    const { correct, incorrect, answeredOne, timecount, level } = this.props;
+    const { correct, incorrect, allAnswers, answeredOne, timecount, level } = this.props;
+    // const randomAllAnswers = shuffleArray(allAnswers);
     return (
       <div>
         <div className="answers-button">
