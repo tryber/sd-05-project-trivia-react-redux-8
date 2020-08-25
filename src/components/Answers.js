@@ -2,6 +2,8 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { answeredAction, playerScoreAction } from '../actions';
+import decodeEntities from '../services/decodeEntities';
+import shuffleArray from '../services/shuffleArray';
 
 class Answers extends React.Component {
   constructor(props) {
@@ -49,28 +51,29 @@ class Answers extends React.Component {
     const { correct, incorrect, answeredOne, timecount, level } = this.props;
     return (
       <div>
-        <p>Choose between one of these answer options:</p>
+        <div className="answers-button">
         <button
           data-testid="correct-answer"
           id="correct"
           onClick={(e) => this.answered(e, timecount, level)}
           disabled={answeredOne}
-          className={answeredOne ? 'green-border' : null}
+          className={answeredOne ? 'green-border' : 'answ'}
         >
-          {correct}
+          {decodeEntities(correct)}
         </button>
         {incorrect.map((answer, index) => (
           <button
             key={answer}
             id="incorrect"
-            className={answeredOne ? 'red-border' : null}
+            className={answeredOne ? 'red-border' : 'answ'}
             data-testid={`wrong-answer-${index}`}
             onClick={(e) => this.answered(e, timecount, level)}
             disabled={answeredOne}
           >
-            {answer}
+            {decodeEntities(answer)}
           </button>
         ))}
+        </div>
       </div>
     );
   }

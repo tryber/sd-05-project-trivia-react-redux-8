@@ -5,6 +5,7 @@ import { connect } from 'react-redux';
 import Header from './Header';
 import Answers from './Answers';
 import { clearAction, answeredAction } from '../actions';
+import decodeEntities from '../services/decodeEntities';
 
 class Game extends React.Component {
   constructor(props) {
@@ -63,11 +64,13 @@ class Game extends React.Component {
       <div>
         {isFetching && <p>Loading...</p>}
         {!isFetching && dataGame.length > 0 && (
-          <div>
+          <section className="game">
+            <div>
             <Header />
-            <p>Hi there! You are in for exactly 5 questions.</p>
-            <p data-testid="question-category">Category - {dataGame[i].category}</p>
-            <p data-testid="question-text">Question - {dataGame[i].question}</p>
+            <div className="question">
+            <h3 data-testid="question-category">CATEGORY - {decodeEntities(dataGame[i].category)}</h3>
+            <h3 data-testid="question-text">QUESTION - {decodeEntities(dataGame[i].question)}</h3>
+            </div>
             <Answers
               correct={dataGame[i].correct_answer}
               incorrect={dataGame[i].incorrect_answers}
@@ -75,12 +78,13 @@ class Game extends React.Component {
               timecount={count}
               level={dataGame[i].difficulty}
             />
-            <p>Time you have left to answer: {count}</p>
-          </div>
+            </div>
+            <h3 className="timer">Time left: {count}</h3>
+          </section>
         )}
         {answeredOne && (
-          <button data-testid="btn-next" onClick={this.next}>
-            Próxima
+          <button className="transition-button" data-testid="btn-next" onClick={this.next}>
+            NEXT
           </button>
         )}
         {numberQuestions === 6 && <Redirect to="/score" />}
