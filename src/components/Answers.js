@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { answeredAction, playerScoreAction } from '../actions';
 import decodeEntities from '../services/decodeEntities';
-// import shuffleArray from '../services/shuffleArray';
+import shuffleArray from '../services/shuffleArray';
 
 class Answers extends React.Component {
   constructor(props) {
@@ -48,11 +48,41 @@ class Answers extends React.Component {
   // JSON.stringify https://www.w3schools.com/js/js_json_stringify.asp
 
   render() {
-    const { correct, incorrect, allAnswers, answeredOne, timecount, level } = this.props;
-    // const randomAllAnswers = shuffleArray(allAnswers);
+    const { correct, incorrect, answeredOne, timecount, level } = this.props;
+    const allAnswers = [...incorrect, correct];
+    const randomAllAnswers = shuffleArray(allAnswers);
+    // console.log(randomAllAnswers);
     return (
-      <div>
-        <div className="answers-button">
+      <div className="answers-button">
+        {randomAllAnswers.map((answer, index) => 
+         (answer === correct ? (
+          <button
+          key={answer}
+          data-testid="correct-answer"
+          id="correct"
+          onClick={(e) => this.answered(e, timecount, level)}
+          disabled={answeredOne}
+          className={answeredOne ? 'green-border' : 'answ'}
+        >
+          {decodeEntities(answer)}
+        </button>
+        ) : (
+          <button
+            key={answer}
+            id="incorrect"
+            className={answeredOne ? 'red-border' : 'answ'}
+            data-testid={`wrong-answer-${index}`}
+            onClick={(e) => this.answered(e, timecount, level)}
+            disabled={answeredOne}
+          >
+            {decodeEntities(answer)}
+          </button>
+        )),
+      )}
+        
+
+
+        {/* <div className="answers-button">
         <button
           data-testid="correct-answer"
           id="correct"
@@ -74,7 +104,7 @@ class Answers extends React.Component {
             {decodeEntities(answer)}
           </button>
         ))}
-        </div>
+        </div> */}
       </div>
     );
   }
