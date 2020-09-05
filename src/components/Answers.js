@@ -8,8 +8,24 @@ import shuffleArray from '../services/shuffleArray';
 class Answers extends React.Component {
   constructor(props) {
     super(props);
+      this.state = {
+        randomAnswersState: [],
+      }
+    this.shuffle = this.shuffle.bind(this);
     this.answered = this.answered.bind(this);
     this.calculateScore = this.calculateScore.bind(this);
+  }
+
+  componentDidMount() {
+    this.shuffle();
+  }
+
+  // shuffle has to be done via next button or componentdidmount here, so as to be fixed and not rendered at every update (second)
+  shuffle() {
+    const { correct, incorrect } = this.props;
+    const allAnswers = [...incorrect, correct];
+    const randomAllAnswers = shuffleArray(allAnswers);
+    this.setState({ randomAnswersState: randomAllAnswers });
   }
 
   answered(event, timecount, level) {
@@ -43,18 +59,16 @@ class Answers extends React.Component {
     };
     localStorage.setItem('state', JSON.stringify(newPlayerState));
   }
-
   // [HA]{Game - R6} Ajuda - (objeto difficulty + storage, Felipe Vieira, Grupo 2, PR: https://github.com/tryber/sd-05-project-trivia-react-redux-2/pull/4/files ).
   // JSON.stringify https://www.w3schools.com/js/js_json_stringify.asp
 
   render() {
-    const { correct, incorrect, answeredOne, timecount, level } = this.props;
-    const allAnswers = [...incorrect, correct];
-    const randomAllAnswers = shuffleArray(allAnswers);
-    // console.log(randomAllAnswers);
+    const { correct, answeredOne, timecount, level } = this.props;
+
+    // goal: be able to keep this map. challenge: access randomAllAnswers being created as fixed, outside render
     return (
       <div className="answers-button">
-        {randomAllAnswers.map((answer, index) => 
+        {this.state.randomAnswersState.map((answer, index) => 
          (answer === correct ? (
           <button
           key={answer}
@@ -80,8 +94,6 @@ class Answers extends React.Component {
         )),
       )}
         
-
-
         {/* <div className="answers-button">
         <button
           data-testid="correct-answer"
@@ -89,23 +101,23 @@ class Answers extends React.Component {
           onClick={(e) => this.answered(e, timecount, level)}
           disabled={answeredOne}
           className={answeredOne ? 'green-border' : 'answ'}
-        >
+          >
           {decodeEntities(correct)}
-        </button>
-        {incorrect.map((answer, index) => (
-          <button
+          </button>
+          {incorrect.map((answer, index) => (
+            <button
             key={answer}
             id="incorrect"
             className={answeredOne ? 'red-border' : 'answ'}
             data-testid={`wrong-answer-${index}`}
             onClick={(e) => this.answered(e, timecount, level)}
             disabled={answeredOne}
-          >
+            >
             {decodeEntities(answer)}
-          </button>
-        ))}
-        </div> */}
-      </div>
+            </button>
+            ))}
+          </div> */}
+          </div>
     );
   }
 }
@@ -120,7 +132,7 @@ const mapStateToProps = (state) => ({
   assertions: state.dataPlayerReducer.assertions,
   name: state.dataPlayerReducer.name,
   email: state.dataPlayerReducer.email,
-  timecount: state.timeReducer.count,
+  // timecount: state.timeReducer.count,
 });
 
 const mapDispatchToProps = (dispatch) => ({

@@ -12,7 +12,7 @@ class Game extends React.Component {
     super(props);
     this.state = {
       i: 0,
-      // count: 30,
+      count: 30,
       numberQuestions: 1,
     };
     this.next = this.next.bind(this);
@@ -24,33 +24,37 @@ class Game extends React.Component {
   }
 
   componentDidUpdate() {
-    // const { count } = this.state;
-    const { answeredOne, answerRedux, timecount } = this.props;
-    if (timecount === 0 || answeredOne) {
+    const { count } = this.state;
+    const { answeredOne, answerRedux } = this.props;
+    if ( count === 0 || answeredOne) {
       clearInterval(this.myInterval);
       answerRedux();
     }
   }
 
   beginTimer() {
-    const { getTimer } = this.props;
-    getTimer(30);
-    this.myInterval = setInterval(() => getTimer(-1), 1000);
-  //   this.myInterval = setInterval(() => {
-  //     this.setState((prevState) => ({
-  //       count: prevState.count - 1,
-  //     }));
-  //   }, 1000);
+    // const { getTimer } = this.props;
+    // getTimer(30);
+    // this.myInterval = setInterval(() => getTimer(-1), 1000);
+    clearInterval(this.myInterval);
+    this.myInterval = setInterval(() => {
+      this.setState((prevState) => ({
+        count: Math.max(prevState.count - 1, 0) }));
+    }, 1000);
   }
   // [HA]{Tela Game, R5: timer} Modelo - https://www.youtube.com/watch?v=NAx76xx40jM .
 
   next() {
+    // reset the answeredOne state because not answered yet
     const { clearAnswered } = this.props;
     clearAnswered();
-    // this.setState({ count: 30 });
+    // reset the timer
+    this.setState({ count: 30 });
     this.beginTimer();
+    // mark the total number of questions already displayed
     const { numberQuestions } = this.state;
     this.setState({ numberQuestions: numberQuestions + 1 });
+    // go to next question according to its index
     const { i } = this.state;
     if (i < 4) {
       return this.setState({ i: i + 1 });
@@ -61,8 +65,8 @@ class Game extends React.Component {
   }
 
   render() {
-    const { dataGame, isFetching, answeredOne, timecount } = this.props;
-    const { i, numberQuestions } = this.state;
+    const { dataGame, isFetching, answeredOne } = this.props;
+    const { i, count, numberQuestions } = this.state;
     return (
       <div>
         {isFetching && <p>Loading...</p>}
@@ -79,11 +83,11 @@ class Game extends React.Component {
               incorrect={dataGame[i].incorrect_answers}
               // allAnswers={[...dataGame[i].incorrect_answers, dataGame[i].correct_answer]}
               i={i}
-              // timecount={count}
+              timecount={count}
               level={dataGame[i].difficulty}
             />
             </div>
-            <h3 className="timer">Time left: {timecount}</h3>
+            <h3 className="timer">Time left: {count}</h3>
           </section>
         )}
         {answeredOne && (
