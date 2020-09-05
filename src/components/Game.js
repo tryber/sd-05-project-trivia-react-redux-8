@@ -14,6 +14,7 @@ class Game extends React.Component {
       i: 0,
       count: 30,
       numberQuestions: 1,
+      randomAnswers: [],
     };
     this.next = this.next.bind(this);
     this.beginTimer = this.beginTimer.bind(this);

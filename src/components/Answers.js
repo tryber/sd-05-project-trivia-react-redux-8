@@ -9,7 +9,7 @@ class Answers extends React.Component {
   constructor(props) {
     super(props);
       this.state = {
-        randomAnswersState: [],
+        randomAnswers: [],
       }
     this.shuffle = this.shuffle.bind(this);
     this.answered = this.answered.bind(this);
@@ -20,12 +20,18 @@ class Answers extends React.Component {
     this.shuffle();
   }
 
-  // shuffle has to be done via next button or componentdidmount here, so as to be fixed and not rendered at every update (second)
+  // shuffle has to be done via next button in Game or componentdidmount here, so as to be fixed and not rendered at every update (second).
   shuffle() {
     const { correct, incorrect } = this.props;
     const allAnswers = [...incorrect, correct];
     const randomAllAnswers = shuffleArray(allAnswers);
-    this.setState({ randomAnswersState: randomAllAnswers });
+    console.log(randomAllAnswers);
+    // was ok
+    this.setState({ randomAnswers: randomAllAnswers });
+    console.log(this.state.randomAnswers); 
+    // was but did appear on screen when state forced ['bla','blou']
+    // problem: same answers for each questions! unpaired.
+    // keep trying but with index consideration!! maybe joining Game and Answers to make it easier, here it seemed like index should already work...
   }
 
   answered(event, timecount, level) {
@@ -64,11 +70,19 @@ class Answers extends React.Component {
 
   render() {
     const { correct, answeredOne, timecount, level } = this.props;
-
-    // goal: be able to keep this map. challenge: access randomAllAnswers being created as fixed, outside render
+    // 05.09 where I left it.
+    // Goal: be able to keep this following map and render.
+    // Challenge: access randomAllAnswers being created as fixed outside render.
+    // How?
+    // 1. tried local state, failed, index reason, stayed the same. Try a bit more this before smthg else!
+    // 2. actually div must be outside too so as to get index of the question. 
+    // 3. Creating object? in this case, everything in one component, Game, possible for CC because render will be short.
+    // See inspirations: http://dontpad.com/shuffleoutsiderender .
+    // Last step: maybe even after the shuffle fix, there could be Timer to consider too.
     return (
       <div className="answers-button">
-        {this.state.randomAnswersState.map((answer, index) => 
+        {/* this was the state tentative, broken: */}
+        {this.state.randomAnswers.map((answer, index) => 
          (answer === correct ? (
           <button
           key={answer}
