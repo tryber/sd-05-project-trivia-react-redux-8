@@ -4,7 +4,7 @@ import { Redirect } from 'react-router-dom';
 import { connect } from 'react-redux';
 import Header from './Header';
 import Answers from './Answers';
-import { clearAction, answeredAction } from '../actions';
+import { clearAction, answeredAction, timerAction } from '../actions';
 import decodeEntities from '../services/decodeEntities';
 
 class Game extends React.Component {
@@ -12,7 +12,7 @@ class Game extends React.Component {
     super(props);
     this.state = {
       i: 0,
-      count: 30,
+      // count: 30,
       numberQuestions: 1,
     };
     this.next = this.next.bind(this);
@@ -24,27 +24,30 @@ class Game extends React.Component {
   }
 
   componentDidUpdate() {
-    const { count } = this.state;
-    const { answeredOne, answerRedux } = this.props;
-    if (count === 0 || answeredOne) {
+    // const { count } = this.state;
+    const { answeredOne, answerRedux, timecount } = this.props;
+    if (timecount === 0 || answeredOne) {
       clearInterval(this.myInterval);
       answerRedux();
     }
   }
 
   beginTimer() {
-    this.myInterval = setInterval(() => {
-      this.setState((prevState) => ({
-        count: prevState.count - 1,
-      }));
-    }, 1000);
+    const { getTimer } = this.props;
+    getTimer(30);
+    this.myInterval = setInterval(() => getTimer(-1), 1000);
+  //   this.myInterval = setInterval(() => {
+  //     this.setState((prevState) => ({
+  //       count: prevState.count - 1,
+  //     }));
+  //   }, 1000);
   }
   // [HA]{Tela Game, R5: timer} Modelo - https://www.youtube.com/watch?v=NAx76xx40jM .
 
   next() {
     const { clearAnswered } = this.props;
     clearAnswered();
-    this.setState({ count: 30 });
+    // this.setState({ count: 30 });
     this.beginTimer();
     const { numberQuestions } = this.state;
     this.setState({ numberQuestions: numberQuestions + 1 });
@@ -58,8 +61,8 @@ class Game extends React.Component {
   }
 
   render() {
-    const { dataGame, isFetching, answeredOne } = this.props;
-    const { i, count, numberQuestions } = this.state;
+    const { dataGame, isFetching, answeredOne, timecount } = this.props;
+    const { i, numberQuestions } = this.state;
     return (
       <div>
         {isFetching && <p>Loading...</p>}
@@ -76,11 +79,11 @@ class Game extends React.Component {
               incorrect={dataGame[i].incorrect_answers}
               // allAnswers={[...dataGame[i].incorrect_answers, dataGame[i].correct_answer]}
               i={i}
-              timecount={count}
+              // timecount={count}
               level={dataGame[i].difficulty}
             />
             </div>
-            <h3 className="timer">Time left: {count}</h3>
+            <h3 className="timer">Time left: {timecount}</h3>
           </section>
         )}
         {answeredOne && (
@@ -98,19 +101,23 @@ const mapStateToProps = (state) => ({
   dataGame: state.fetchApis.dataGame,
   isFetching: state.fetchApis.isFetching,
   answeredOne: state.answeredReducer.answeredOne,
+  timecount: state.timeReducer.count,
 });
 
 const mapDispatchToProps = (dispatch) => ({
   clearAnswered: (e) => dispatch(clearAction(e)),
   answerRedux: (e) => dispatch(answeredAction(e)),
+  getTimer: (count) => dispatch(timerAction(count)),
 });
 
 Game.propTypes = {
   dataGame: PropTypes.arrayOf(PropTypes.object).isRequired,
   isFetching: PropTypes.bool.isRequired,
   answeredOne: PropTypes.bool.isRequired,
+  timecount: PropTypes.number.isRequired,
   clearAnswered: PropTypes.func.isRequired,
   answerRedux: PropTypes.func.isRequired,
+  getTimer: PropTypes.func.isRequired,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(Game);

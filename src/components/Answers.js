@@ -120,6 +120,7 @@ const mapStateToProps = (state) => ({
   assertions: state.dataPlayerReducer.assertions,
   name: state.dataPlayerReducer.name,
   email: state.dataPlayerReducer.email,
+  timecount: state.timeReducer.count,
 });
 
 const mapDispatchToProps = (dispatch) => ({
