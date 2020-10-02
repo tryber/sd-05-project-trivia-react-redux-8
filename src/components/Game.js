@@ -6,6 +6,7 @@ import Header from './Header';
 import Answers from './Answers';
 import { clearAction, answeredAction, timerAction } from '../actions';
 import decodeEntities from '../services/decodeEntities';
+import shuffleArray from '../services/shuffleArray';
 
 class Game extends React.Component {
   constructor(props) {
@@ -16,12 +17,15 @@ class Game extends React.Component {
       numberQuestions: 1,
       randomAnswers: [],
     };
+    this.shuffle = this.shuffle.bind(this);
     this.next = this.next.bind(this);
     this.beginTimer = this.beginTimer.bind(this);
   }
 
   componentDidMount() {
     this.beginTimer();
+    console.log('component game did mount');
+    // this.shuffle(); Deixei a primeira pergunta fixa porque senao dava undefined o tempo de receber a api
   }
 
   componentDidUpdate() {
@@ -45,6 +49,16 @@ class Game extends React.Component {
   }
   // [HA]{Tela Game, R5: timer} Modelo - https://www.youtube.com/watch?v=NAx76xx40jM .
 
+  shuffle() {
+    const { dataGame } = this.props;
+    const { i } = this.state;
+    const correct = dataGame[i+1].correct_answer;
+    const incorrect = dataGame[i+1].incorrect_answers;
+    const allAnswers = [...incorrect, correct];
+    const randomAllAnswers = shuffleArray(allAnswers);
+    this.setState({ randomAnswers: randomAllAnswers });
+  }
+
   next() {
     // reset the answeredOne state because not answered yet
     const { clearAnswered } = this.props;
@@ -55,6 +69,10 @@ class Game extends React.Component {
     // mark the total number of questions already displayed
     const { numberQuestions } = this.state;
     this.setState({ numberQuestions: numberQuestions + 1 });
+    // shuffle new set of questions
+    if (numberQuestions < 5) {
+      this.shuffle();
+    }
     // go to next question according to its index
     const { i } = this.state;
     if (i < 4) {
@@ -64,6 +82,8 @@ class Game extends React.Component {
     }
     return this.setState({ i });
   }
+
+
 
   render() {
     const { dataGame, isFetching, answeredOne } = this.props;
@@ -82,7 +102,7 @@ class Game extends React.Component {
             <Answers
               correct={dataGame[i].correct_answer}
               incorrect={dataGame[i].incorrect_answers}
-              // allAnswers={[...dataGame[i].incorrect_answers, dataGame[i].correct_answer]}
+              randomAnswers={this.state.randomAnswers}
               i={i}
               timecount={count}
               level={dataGame[i].difficulty}
