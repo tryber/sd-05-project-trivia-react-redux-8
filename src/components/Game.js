@@ -25,7 +25,8 @@ class Game extends React.Component {
   componentDidMount() {
     this.beginTimer();
     console.log('component game did mount');
-    // this.shuffle(); Deixei a primeira pergunta fixa porque senao dava undefined o tempo de receber a api
+    // this.shuffle(); 
+    // could only randomize from 2nd question on, to wait for api to be charged
   }
 
   componentDidUpdate() {
@@ -82,7 +83,6 @@ class Game extends React.Component {
     }
     return this.setState({ i });
   }
-
 
 
   render() {

@@ -15,7 +15,6 @@ class Answers extends React.Component {
     console.log('component answers did mount');
   }
 
-
   answered(event, timecount, level) {
     // first send globally state of answeredOne true
     const { answerRedux } = this.props;
@@ -52,15 +51,7 @@ class Answers extends React.Component {
 
   render() {
     const { correct, incorrect, randomAnswers, answeredOne, timecount, level } = this.props;
-    // 05.09 where I left it.
-    // Goal: be able to keep this following map and render.
-    // Challenge: access randomAllAnswers being created as fixed outside render.
-    // How?
-    // 1. tried local state, failed, index reason, stayed the same. Try a bit more this before smthg else!
-    // 2. actually div must be outside too so as to get index of the question.
-    // 3. Creating object? in this case, everything in one component, Game, possible for CC because render will be short.
-    // See inspirations: http://dontpad.com/shuffleoutsiderender .
-    // Last step: maybe even after the shuffle fix, there could be Timer to consider too.
+    // could only randomize from 2nd question on, to wait for api to be charged
     if (randomAnswers.length === 0)
       return (
         <div className="answers-button">
@@ -117,7 +108,6 @@ class Answers extends React.Component {
                 </button>
               )
             )}
-          )
         </div>
       );
   }

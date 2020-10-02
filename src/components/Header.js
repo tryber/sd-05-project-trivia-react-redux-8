@@ -11,6 +11,7 @@ class Header extends React.Component {
       <div className="header-player">
         <p data-testid="header-player-name">Player:<br />{name}</p>
         <img
+          className="img-gravatar"
           data-testid="header-profile-picture"
           alt=""
           src={`https://www.gravatar.com/avatar/${hash}`}
