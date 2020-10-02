@@ -4,7 +4,7 @@ import { Redirect } from 'react-router-dom';
 import { connect } from 'react-redux';
 import Header from './Header';
 import Answers from './Answers';
-import { clearAction, answeredAction, timerAction } from '../actions';
+import { clearAction, answeredAction } from '../actions';
 import decodeEntities from '../services/decodeEntities';
 import shuffleArray from '../services/shuffleArray';
 
@@ -39,9 +39,6 @@ class Game extends React.Component {
   }
 
   beginTimer() {
-    // const { getTimer } = this.props;
-    // getTimer(30);
-    // this.myInterval = setInterval(() => getTimer(-1), 1000);
     clearInterval(this.myInterval);
     this.myInterval = setInterval(() => {
       this.setState((prevState) => ({
@@ -126,13 +123,14 @@ const mapStateToProps = (state) => ({
   dataGame: state.fetchApis.dataGame,
   isFetching: state.fetchApis.isFetching,
   answeredOne: state.answeredReducer.answeredOne,
-  timecount: state.timeReducer.count,
+  // timecount: state.timeReducer.count,
+  // finally chose local state over stored state for timer
 });
 
 const mapDispatchToProps = (dispatch) => ({
   clearAnswered: (e) => dispatch(clearAction(e)),
   answerRedux: (e) => dispatch(answeredAction(e)),
-  getTimer: (count) => dispatch(timerAction(count)),
+  // getTimer: (count) => dispatch(timerAction(count)),
 });
 
 Game.propTypes = {

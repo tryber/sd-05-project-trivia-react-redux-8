@@ -113,9 +113,9 @@ export function clearPlayerAction(name, email, score, assertions) {
   };
 }
 
-export function timerAction(count) {
-  return {
-    type: SET_TIME,
-    count,
-  };
-}
+// export function timerAction(count) {
+//   return {
+//     type: SET_TIME,
+//     count,
+//   };
+// }

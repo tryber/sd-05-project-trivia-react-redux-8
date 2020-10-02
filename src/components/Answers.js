@@ -51,7 +51,7 @@ class Answers extends React.Component {
 
   render() {
     const { correct, incorrect, randomAnswers, answeredOne, timecount, level } = this.props;
-    // could only randomize from 2nd question on, to wait for api to be charged
+    // could only randomize from 2nd question on, to wait for api to be loaded
     if (randomAnswers.length === 0)
       return (
         <div className="answers-button">
@@ -81,7 +81,6 @@ class Answers extends React.Component {
     else
       return (
         <div className="answers-button">
-          {/* this was the state tentative, broken: */}
           {randomAnswers.length > 0 &&
             randomAnswers.map((answer, index) =>
               answer === correct ? (
@@ -112,9 +111,6 @@ class Answers extends React.Component {
       );
   }
 }
-
-// allAnswers put into the shuffle function
-// randomAllAnswers rendering: map and condition to render all the logic and events above.
 
 const mapStateToProps = (state) => ({
   dataGame: state.fetchApis.dataGame,
